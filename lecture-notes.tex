@@ -1,0 +1,1780 @@
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{fancyhdr}
+\usepackage{enumerate}
+\usepackage{multicol}
+\usepackage{real}
+
+\oddsidemargin0cm
+\topmargin-2cm     %I recommend adding these three lines to increase the 
+\textwidth16.5cm   %amount of usable space on the page (and save trees)
+\textheight23.5cm  
+
+\newcommand{\myname}{Vincent Siao}
+\newcommand{\myandrew}{vsiao@andrew.cmu.edu}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt}
+
+\pagestyle{fancyplain}
+\lhead{\fancyplain{}{\textbf{21-355 Real Analysis I}}} 
+\rhead{\fancyplain{}{\myname\\ \myandrew}}
+\chead{\fancyplain{}{Lecture Notes}}
+
+\author{\myname \\ \myandrew}
+\title{Real Analysis I Lecture notes}
+
+\begin{document}
+\section{The Number Systems}
+\subsection{The Naturals}
+\begin{description}
+\item[Theorem I (Existence of $\N$).] $\exists$ a set $\N$
+    satisfying the following Peano Axioms:
+    \begin{enumerate}[(P{A}1)]
+    \item $0\in\N$
+    \item $\exists \hasType{\fnType{\N}{\N}}{S}$
+    \item $\forall n\in\N, S(n)\ne 0$
+    \item $S(n)=S(m) \implies n=m$
+    \item Let $\pred{n}$ be a property associated to each $n\in\N$. If
+      \begin{itemize}
+      \item $\pred{0}$ is true, and
+      \item $\pred{n}$ is true $\implies \pred{S(n)}$,
+      \end{itemize}
+    then $\pred{n}$ is true $\forall n\in\N$.
+    \end{enumerate}
+
+\item[Proof.] The existence of $\N$ follows directly from the
+    Zermelo-Frankel axioms of set theory. $\hfill\blacksquare$
+
+
+% \item[Definition ($\N$).] $0\in\N$. By (PA2), $S(0)\in\N$, so
+%     we define $1=S(0), 2=S(1), \ldots$
+% 
+% \item[Proof.] We already know $\{0,1,2,\ldots\}\subseteq\N$ by (PA2),
+%     so it suffices to show that $\N\subseteq\{0,1,2\ldots\}$.
+%     Let $\pred{n}$ be ``$n\in\{0,1,2,\ldots\}$''.
+%     $\pred{0}$ is true by (PA1). Now suppose that $\pred{n}$ is true.
+%     Then $S(n)\in\{0,1,2,\ldots\}$ by (PA2), and thus $\pred{S(n)}$ is true.
+%     By (PA5), $\pred{n}$ is true $\forall n\in\N$.
+
+
+\item[Definition (Addition).] For any $m\in\N$, we define $0+m=m$.
+    Then, if $n+m$ is defined for $n\in\N$, we set $S(n)+m = S(n+m)$.
+
+\item[Proposition (Properties of Addition).]\mbox{}
+  \begin{enumerate}[({A}1)]
+  \item $\forall n\in\N, n+0 = n$
+  \item $\forall m,n\in\N, n+S(m) = S(n+m)$
+  \item Commutativity. $\forall m,n\in\N, m+n = n+m$
+  \item Associativity. $\forall k,m,n\in\N, k+(m+n) = (k+m)+n$
+  \item Cancellation. $\forall k,m,n\in\N, n+k = n+m \implies k = m$
+  \end{enumerate}
+
+% \item[Proof.]\mbox{}
+%   \begin{enumerate}[({A}1)]
+%   \item By induction on $n$.
+%   \item Fix $m$ and go by induction on $n$.
+%   \item Fix $m$ and go by induction on $n$.
+%   \item Fix $k,m$ and go by induction on $n$, using (PA1) and (PA2).
+%   \item Fix $m,n$ and go by induction on $k$, using (PA2) and (PA4).
+%   \end{enumerate}
+
+\item[Remarks:]\mbox{}
+  \begin{itemize}
+  \item $\forall n\in\N, 0+n \eqBy{(A3)} n+0 \eqBy{(A1)} n$
+  \item $\forall n\in\N, S(n) \eqBy{(A1)} S(n+0) \eqBy{(A2)} n+S(0) \eqBy{def} n+1$
+  \end{itemize}
+
+
+\item[Definition (Positivity).] We say $n\in\N$ is \textit{positive} iff $n\ne0$.
+
+\item[Proposition (Properties of Positivity).]\mbox{}
+  \begin{enumerate}[(P1)]
+  \item $\forall m,n\in\N, \pos{m}\implies\pos{m+n}$
+  \item $\forall m,n\in\N, m+n=0 \implies m=n=0$
+  \item $\forall n\in\N, \pos{n}\implies \exists! m\in\N$ s.t. $n=S(m)$
+  \end{enumerate}
+
+\item[Proof.]\mbox{}
+  \begin{enumerate}[(P1)]
+  \item Fix $m$ and go by induction on $n$.
+  \item Suppose not, and either $m$ or $n$ positive.
+      But then by (P1), $m+n$ positive -- contradiction.
+  \item Uniqueness follows from (PA4). For existence go by induction on $n$
+      and show that either $n=0$ or $\exists m\in\N$ s.t. $S(m)=n$.
+  \end{enumerate}
+  $\hfill\square$
+
+
+\item[Definition (Order).] Fix $m,n\in\N$. We say $m\le n$ or $n\ge m$
+    $\iff n=m+p$ for some $p\in\N$. We say $m<n$ or $n>m \iff m\le n$
+    and $m\ne n$.
+
+\item[Proposition (Properties of Order).] Let $j,k,m,n\in\N$.
+  \begin{enumerate}[(O1)]
+  \item $n\ge n$
+  \item $m\le n, k\le m\implies k\le n$
+  \item $m\ge n, m\le n\implies m=n$
+  \item $j\le k, m\le n\implies j+m\le k+n$
+  \item $j\le k, m\le n\implies j+m\le k+n$
+  \item $m\le n\iff S(m)\le n$
+  \item $m<n\iff n=M+p$ for some positive $p\in\N$
+  \item $n\ge m\iff S(n)>m$
+  \item Either $n=0$ or $n>0$.
+  \item $n\in\N$ is positive $\iff 1\le n$
+  \end{enumerate}
+
+\item[Theorem (Trichotomy of order on $\N$).] Let $m,n\in\N$.\\
+    Exactly one of $\{m<n,m=n,m>n\}$ is true.
+
+\item[Definition (Multiplication).] Fix $m\in\N$. Define $0\cdot m=0$.
+    Now, if $n\cdot m$ is defined for some $n\in\N$,
+    we define $S(n)\cdot m = n\cdot m + m$.
+
+\item[Proposition (Properties of Multiplication).]\mbox{}
+  \begin{enumerate}[(M1)]
+  \item $\forall m,n\in\N, m\cdot n = n\cdot m$
+  \item $\forall m,n\in\N, \pos{m,n} \implies \pos{m\cdot n}$
+  \item $\forall m,n\in\N, m\cdot n = 0 \iff m=0\;\mathsf{or}\;n=0$
+  \item $\forall k,m,n\in\N, k\cdot(m\cdot n) = (k\cdot m)\cdot n$
+  \item $\forall k,m,n\in\N, \pos{k}, k\cdot m = k\cdot n\implies m=n$
+  \item $\forall k,m,n\in\N, k\cdot(m+n) = (m+n)\cdot k = k\cdot m+k\cdot n$
+  \item $\forall k,l,m,n\in\N, m<n, k\le l, \mathsf{and}\;
+      \pos{k,l}\implies m\cdot k<n\cdot l$
+  \end{enumerate}
+
+\item[Proof.] By induction using properties of order/addition
+    and their definitions. $\hfill\square$
+\end{description}
+
+\subsection{The Integers}
+Consider the following relation on $\N\times\N = \{(m,n)\;|\;m,n\in\N\}$:
+\[
+(m,n)\simeq(m',n') \iff m+n' = m'+n
+\]
+\begin{description}
+\item[Lemma.] $\simeq$ is an equivalence relation:
+    $[(m,n)] = \{(p,q)\;|\;(p,q)\simeq(m,n)\}$
+% \item[Proof.] Direct proof of reflexive, symmetric, and
+%     transitive properties. $\hfill\square$
+
+\item[Definition.] $\Z=\{[(m,n)]\}$.
+
+\item[Definition.] Let $[(n,m)], [(p,q)]\in\Z$. Then
+  \begin{enumerate}[1)]
+  \item $[(m,n)]+[(p,q)] = [(m+p,n+q)]$
+  \item $[(m,n)]\cdot [(p,q)] = [(mp+nq,mq+np)]$
+  \end{enumerate}
+
+\item[Remark.] Notice that $\forall m,n\in\N$:
+  \begin{enumerate}[i)]
+  \item $[(m,0)]=[(n,0)]\iff m+0=n+0 \iff m=n$
+  \item $[(m,0)]+[(n,0)] = [(m+n,0)]$
+  \item $[(m,0)]\cdot [(n,0)] = [(mn, 0)]$
+  \end{enumerate}
+
+
+\item[Definition.]\mbox{}
+  \begin{enumerate}[1)]
+  \item For $n\in\N$ we set $n\in\Z$ to be $[(n,0)]$.
+  \item For $x=[(m,n)]\in\Z$ we define $-x=[(n,m)]$.
+  \end{enumerate}
+
+
+\item[Theorem.] Every $x\in\Z$ satisfies exactly one of
+    $\{x=n, x=0, x=-n\}$ where $n\in\N$ and $\pos{n}$.
+\item[Proof.] Write $x=[(p,q)]$ for some $p,q\in\N$
+    and use trichotomy of order on $\N$ for $p,q$. $\hfill\blacksquare$
+\item[Corollary.] $\Z=\{0,1,2,\ldots\}\cup\{-1,-2,-3,\ldots\}$
+
+
+\item[Proposition (Algebra in $\Z$).]\mbox{}
+  \begin{multicols}{2}
+  \begin{enumerate}[({A}Z1)]
+  \item $x+y=y+x$
+  \item $x+(y+z)=(x+y)+z$
+  \item $x+0=0+x=x$
+  \item $x+(-x)=(-x)+x=0$
+  \item $x\cdot y = y\cdot x$
+  \item $(x\cdot y)\cdot z = (x\cdot y)\cdot z$
+  \item $x\cdot 1 = 1\cdot x = x$
+  \item $x\cdot (y+z) = x\cdot y + x\cdot z$
+  \end{enumerate}
+  \end{multicols}
+\item[Proof.] Write $x=[(m,n)], y=[(p,q)], z=[(k,l)]$ and expand
+    using definitions. The results then follow from the corresponding
+    results on $\N$. $\hfill\square$
+
+
+\item[Definition.] We define $x-y = x+(-y)$. The usual properties hold.
+\item[Definition.] For $x,y\in\Z$:
+  \begin{itemize}
+  \item $x\le y \iff y\ge x \iff y-x=n$ for some $n\in\N$
+  \item $x<y \iff y>x \iff x\le y$ and $x\ne y$.
+  \end{itemize}
+
+
+\item[Proposition (Properties of Order on $\Z$).]\mbox{}
+  \begin{enumerate}[(OZ1)]
+  \item $x>y\iff x=y+p$ for some $p\in\N$ positive.
+  \item $x>y,z\ge w\implies x+z>y+w$
+  \item $x>y, \pos{z}\implies x\cdot z > y\cdot z$
+  \item $x>y\implies -y > -x$
+  \item $x > y, y>z\implies x>z$
+  \item Exactly one of $\{x<y,x=y,x>y\}$ holds.
+  \end{enumerate}
+\item[Proof.] Prove (OZ1). Everything else follows from
+    Order on $\N$. $\hfill\square$
+\end{description}
+
+\subsection{The Rationals and Ordered Fields}
+Consider the following relation on $\Z\times(\Z\setminus\{0\})$:
+\[
+(m,n)\simeq(m',n')\iff mn' = m'n
+\]
+\begin{description}
+\item[Lemma.] $\simeq$ is an equivalence relation.
+\item[Definition.] $\Q = \{[(m,n)]\}$.
+  \begin{enumerate}[1)]
+  \item $[(m,n)]+[(p,q)]=[(mq+np,nq)]$
+  \item $[(m,n)]\cdot[(p,q)]=[(mp,nq)]$
+  \item If $m\ne0$ we set $\inv{[(m,n)]} = [(n,m)]$.
+  \end{enumerate}
+
+% 9/4
+
+\item[Remark.] Notice that $\forall m,n\in\Z$:
+  \begin{enumerate}[i)]
+  \item $[(m,1)]=[(n,1)] \iff m=n$
+  \item $[(m,1)]+[(n,1)] = [(m+n,1)]$
+  % \item $[(-m,1)] = [(-m,1)]$
+  \item $[(m,1)]\cdot[(n,1)]=[(m\cdot n, 1)]$
+  \end{enumerate}
+
+\item[Definition.]\mbox{}
+  \begin{enumerate}[1)]
+  \item If $m\in\Z$ we write $m=[(m,1)]\in\Q$.
+      In this way $\N\subset\Z\subset\Q$.
+  \item For $x,y\in\Q$, $x-y=x+(-y)\in\Q$.
+  \item For $x,y\in\Q, y\ne0$, we define $x/y=x\cdot\inv{y}$.\\
+      This is well-defined because $y\ne0\iff y=[(m,n)]$ with $m\ne0$.
+  \end{enumerate}
+
+
+\item[Proposition.] $\Q=\{m/n\;|\;m,n\in\Z,n\ne0\}$.
+\item[Proof.] $x\in\Q\iff x = [(m,n)]$ for some $m,n\in\Z,n\ne0$.
+    But \[
+    x=[(m,n)]\eqBy{def.}[(m,1)]\cdot[(1,n)]=
+    [(m,1)]\cdot\inv{[(n,1)]}=m\cdot\inv{n}=m/n
+    \] $\hfill\square$
+    \vspace{-0.3in}
+
+
+\item[Definition.]\mbox{}
+  \begin{enumerate}[1)]
+  \item $\Q^+ = \{m/n\in\Q\;|\;m,n\in\N\text{ are positive}\}$
+      is the positive rationals.
+  \item $\Q^- = \{-m/n\in\Q\;|\;m,n\in\N\text{ are positive}\}$
+      is the negative rationals.
+  \item For $x,y\in\Q$, we say $x<y$ or $y>x$ if and only if $y-x\in\Q^+$.\\
+      We say $x\le y$ or $y\ge x$ if and only if $x<y$ or $x=y$.
+  \end{enumerate}
+
+
+\item[Proposition (Trichotomy of order on $\Q$).] Let $x,y\in\Q$.\\
+    Exactly one of $\{x<y,x=y,x>y\}$ is true.
+\item[Proof.] Follows directly from Trichotomy of order on $\Z$ (OZ6).
+
+
+\newpage
+\item[Definition.] A \textbf{field} is a set $\F$ endowed with
+    binary operations $(+,\cdot)$ satisfying the following axioms:
+    \begin{multicols}{2}
+    \begin{enumerate}[({A}1)]
+    \item $\forall x,y\in\F, x+y\in\F$
+    \item $\forall x,y\in\F, x+y=y+x$
+    \item $\forall x,y,z\in\F, x+(y+z)=(x+y)+z$
+    \item $\exists 0\in\F$ s.t.\ $\forall x\in\F, 0+x=x+0=x$
+    \item $\forall x\in\F, \exists-x$ s.t.\ $x+(-x)=0$
+    \end{enumerate}
+    \begin{enumerate}[(M1)]
+    \item $\forall x,y\in\F, x\cdot y\in\F$
+    \item $\forall x,y\in\F, x\cdot y=y\cdot x$
+    \item $\forall x,y,z\in\F, x(yz)=(xy)z$
+    \item $\exists 1\in\F$ s.t.\ $\forall x\in\F,1\cdot x=x\cdot1=x$
+    \item $\forall x\in\F\setminus\{0\},\exists\inv{x}\in\F$
+        s.t.\ $x\cdot\inv{x}=1$
+    \end{enumerate}
+    \end{multicols}
+    \vspace{-0.27in}
+    \begin{enumerate}[(D1)]
+    \item $\forall x,y,z\in\F, x(y+z)=xy+xz$
+    \end{enumerate}
+
+
+\item[Definition.] Let $E$ be a set. An order on $E$ is a relation
+    $<$ satisfying the following:
+    \begin{enumerate}[(1)]
+    \item $\forall x,y\in E$ exactly one of $\{x<y,x=y,x>y\}$ is true.
+    \item $\forall x,y,z\in E$, $x<y$ and $y<z \implies x<z$.
+    \end{enumerate}
+
+\item[Definition.] An ordered field is a field $\F$ equipped with an
+    order such that:
+    \begin{enumerate}[(1)]
+    \item $\forall x,y,z\in\F, y<z\implies x+y<x+z$
+    \item $\forall x,y\in\F, x>0,>0\implies x\cdot y>0$
+    \end{enumerate}
+
+\item[Theorem (Properties of an ordered field).] Let $\F$ be a field.
+    For $x,y,z\in\F$:
+    \begin{multicols}{2}
+    \begin{enumerate}[(F1)]
+    \item $x+z=y+z\iff x=y$
+    \item $x+y=0\implies y=-x$
+    \item $-(-x)=x$
+    \item $y\ne0,xy=zy\implies x=z$
+    \item $x\ne0,xy=1\implies y=\inv{x}$
+    \item $\inv{\left(\inv{x}\right)}=x$
+    \item $0\cdot x=0\cdot x=0$
+    \item $x\cdot y=0\implies x=0$ or $y=0$
+    \item $(-x)y=-(xy)=x(-y)$
+    \item $(-x)(-y)=xy$
+    \end{enumerate}
+    \end{multicols}
+    If $\F$ is an ordered field, the following are also true.
+    \begin{multicols}{2}
+    \begin{enumerate}[(F1)]
+    \setcounter{enumi}{10}
+    \item $0<x,z<y\implies xz<xy$
+    \item $x<0,z<y\implies xy<xz$
+    \item $x>0\implies -x<0$\\$x<0\implies -x>0$
+    \item $0<y<x\implies 0<\inv{x}<\inv{y}$
+    \item $x\ne0\implies x\cdot x>0$
+    \item $0<x<y\implies 0<x\cdot x<y\cdot y$\\\text{}
+    \end{enumerate}
+    \end{multicols}
+% \item[Proof.] Prove in a linear order.
+
+% 9/6
+\item[Definition.] Let $\F$ be a field. We define $x-y=x+(-y)$
+    and $x/y=x\inv{y}$ when $y\ne0$.
+\item[Theorem.] $\Q$ is an ordered field with order $<$.
+\end{description}
+
+\subsection{Problems with $\Q$}
+\begin{description}
+\item[Theorem.] There does not exist a $q\in\Q$ such that $q^2 = 2$.
+\end{description}
+We view this result as informally saying that $\Q$ has ``holes''.
+\begin{description}
+\item[Definition.] Let $E$ be an ordered set with order $<$.
+  \begin{enumerate}[1)]
+  \item We say $A\subseteq E$ is bounded above $\iff \exists x\in E$
+      s.t.\ $a\le x\;\forall a\in A$.\\
+      We say such an $x$ is an upper bound of $A$.
+  \item We say $A\subseteq E$ is bounded below $\iff\exists x\in E$
+      s.t.\ $x\le a\;\forall a\in A$.\\
+      We say such an $x$ is a lower bound of $A$.
+  \item We say $A\subseteq E$ is bounded $\iff$ it's bounded above and below.
+  \item $x$ is a minimum of $A \iff x\in A$ and $x$ is a lower bound of $A$.
+  \item $x$ is a maximum of $A\iff x\in A$ and $x$ is an upper bound of $A$.
+  \end{enumerate}
+
+
+\item[Definition.] Let $E$ be an ordered set and $A\subseteq E$.
+  \begin{enumerate}[(1)]
+  \item $x\in E$ is the \textit{supremum} (least upper bound)
+      of $A$, written $x=\sup A$, if and only if:
+      \begin{itemize}
+      \item $x$ is an upper bound of $A$
+      \item if $y\in E$ is an upper bound of $A$, then $x\le y$
+      \end{itemize}
+  \item $x\in E$ is the \textit{infimum} (greatest lower bound)
+      of $A$, written $x=\inf A$, if and only if:
+      \begin{itemize}
+      \item $x$ is a lower bound of $A$
+      \item if $y\in E$ is a lower bound of $A$, then $y\le x$
+      \end{itemize}
+  \end{enumerate}
+
+
+\item[Definition.] Let $E$ be an ordered set. We say that $E$ has the
+    \textit{least-upper-bound property} if and only if every
+    $\emptyset\ne A\subseteq E$ that is bounded from above has
+    a least-upper-bound.
+\item[Theorem.] $\Q$ does not satisfy the least-upper-bound property.
+\end{description}
+
+\subsection{The Real Numbers}
+Our goal now is to use $\Q$ to construct an ordered field
+satisfying the least-upper-bound property.
+\begin{description}
+\item[Definition.] We say $\Q$ is \textbf{Archimedean} if and only if
+    $\forall x\in\Q, x>0\implies\exists n\in\N$ s.t.\ $x<n$.
+\item[Lemma.] If $\Q$ is Archimedean, then $\forall p,q\in\Q,p<q,
+    \exists r\in\Q$ s.t.\ $p<r<q$.
+\end{description}
+We'll now construct the real numbers $\R$, proceeding through several steps.
+\subsubsection{Definitions}
+Recall that $\pwrSet{E}$ is the \textit{power set} of a given set $E$.
+\begin{description}
+\item[Definition.] We say that $\rC\in\pwrSet{\Q}$ is a \textbf{Dedekind cut}
+    if and only if the following properties hold:
+    \begin{enumerate}[(C1)]
+    \item $e\ne\emptyset, e\ne\Q$
+    \item If $p\in\rC$ and $q\in\Q$ with $q<p$, then $q\in\rC$.
+    \item If $p\in\rC$ then $\exists r\in\Q$ with $p<r$ s.t.\ $r\in\rC$.
+    \end{enumerate}
+
+\item[Lemma.] Suppose $\rC$ is a cut. Then
+  \begin{enumerate}[1)]
+  \item $p\in\rC, q\not\in\rC \implies p<q$
+  \item $r\not\in\rC, r<s \implies s\not\in\rC$
+  \item $\rC$ is bounded above.
+  \end{enumerate}
+
+
+\item[Lemma.] Suppose $q\in\Q$. Then $\rC=\{p\in\Q\;|\;p<q\}$ is a cut.
+\item[Proof.] We verify properties (C1-3):
+  \begin{enumerate}[(C1)]
+  \item $q-1\in\rC \implies \rC\ne\emptyset$
+  \item If $p\in\rC$ and $r\in\Q$ s.t.\ $r<p$, then 
+      $r<p<q\implies r<q\implies r\in\rC$.
+  \item Let $p\in\rC$ s.t.\ $p<q$. Since $\Q$ is Archimedean,
+      $\exists r\in\Q$ s.t.\ $p<r<q\implies r\in\rC$.
+  \end{enumerate}
+
+
+\item[Definition.] Given $q\in\Q$ we write $\rC_q=\{p\in\Q\;|\;p<q\}$.
+    By the above, $\rC_q$ is a cut.
+\item[Definition.] We write
+    $\R=\{\rC\in\pwrSet{\Q}\;|\;\rC\text{ is a cut}\}\ne\emptyset$
+
+\item[Notation.] Let $A,B$ be two sets.
+  We say $A\subseteq B \iff \forall x\in A, x\in B$.\\
+  We say $A=B \iff A\subseteq B, B\subseteq A$.
+  We say $A\subset B\iff A\subseteq B, A\ne B$.
+
+
+\item[Lemma.] The following hold:
+  \begin{itemize}
+  \item $\forall \rA,\rB\in\R$, exactly one of
+      $\{\rA\subset\rB, \rA=\rB, \rB\subset\rA\}$ holds.
+  \item $\forall \rA,\rB\in\R, \rA\subset\rB$ and
+      $\rB\subset\rC \implies \rA\subset\rC$
+  \end{itemize}
+
+
+\item[Definition.] If $\rA,\rB\in\R$, we say $\rA<\rB \iff \rA\subset\rB$.\\
+    This defines an order on $\R$ by the above lemma.
+    We'll write $\rA\le\rB\iff\rA\subseteq\rB$.
+\end{description}
+
+\subsubsection{The least-upper-bound property}
+\begin{description}
+\item[Lemma.] Suppose $\emptyset\ne E\subseteq\R$ is bounded above.
+    Then $\rB=\displaystyle{\mathop{\bigcup}_{\rA\in E}}\rA \in\R$.
+\item[Theorem.] $\R$ satisfies the least-upper-bound property.
+\end{description}
+
+\subsubsection{Addition}
+\begin{description}
+\item[Lemma.] If $\rA,\rB\in\R$ then $\rA+\rB\in\R$.
+
+
+\item[Theorem.] $\R,+,0_\R=\rC_0=\{p\in\Q\;|\;p<0\}$
+    satisfy the field axioms (A1-5) if we define
+    \[
+    -\rA=\{q\in\Q\;|\;\exists p>q\;\text{s.t.}\;{-p}\not\in\rA\}
+    \]
+
+\item[Claim.] $\exists n\in\Z$ s.t. $n\cdot t\in\rA$ and $(n+1)\cdot t\not\in\rA$.
+\item[Proof.] Fix $p\in\rA$. We first use the Archimedean property
+to produce $m\in\N$ s.t. $-p<mt$ and then $-mt<p \implies -mt\in\rA$.
+Now consider the set $E=\{k\in\N\;|\;(-m+k)+\not\in\rA\}$. Notice that
+$0\not\in E$. Let $q\not\in\rA$. Then we may use the Archimedean
+property again to choose $k\in\N$ s.t.\
+$m+q/t<k \implies mt+q<kt\implies q<(-m+k)t \implies (-m+k)t\not\in\rA$,
+and so $k\in E$. By the Well-ordering principle $\exists! e\in E$ s.t.\ $l=\min E$,
+and $l\ge 1$. Since $l\in E$ we know $(-m+l)t\not\in\rA$. Since $l-1\not\in E$ and
+$l-1\in\N$, we know that $(-m+l-1)t\in\rA$. Set $n=-m+l-1\in\Z$ and we're done.
+$\hfill\square$
+
+\item[Theorem.] Let $\rA,\rB,\rC\in\R$. Then $\rA<\rB \implies \rA+\rC<\rB+\rC$.
+\item[Proof.] Trivially, $\rA\subseteq\rB\implies \rA+\rC\subseteq\rB+\rC
+\implies \rA+\rC\le\rB+\rC$. If $\rA+\rC=\rB+\rC$ then we can add $-\rC$ to
+both sides and use the last theorem to see that $\rA=\rB$ --- contradiction.
+$\hfill\square$
+\end{description}
+\subsubsection{Multiplication}
+\begin{description}
+\item[Lemma.] Let $\rA,\rB\in\R$ satisfy $\rA,\rB>0_\R$. Then
+    \[
+    \rC=\{q\in\Q\;|\;q\le 0\}\cup\{ab\;|\;a\in\rA,b\in\rB,a>0,b>0\}\in\R
+    \]
+\item[Proof.]\mbox{}
+  \begin{enumerate}[(C1)]
+  \item $0\in\rC\implies\rC\ne0$. $\rA$ and $\rB$ are bounded above by some
+      $M_1$ and $M_2$ respectively, so $M_1\cdot M_2+1$ is not in $\rC$, so $\rC\ne\Q$.
+  \item Let $p\in\rC$ and $q<p$. $q\le0 \impBy{def.} q\in\rC$. If $q>0$ then
+      $0<q<p$, but then $0<p\implies p=a\cdot b$ for $a\in\rA, b\in\rB, a,b>0$.
+      Then $0<q<a\cdot b\implies q/a<b\implies 0<q/a\in\rB$. But then
+      $q=a(q/a)\in\rC$.
+  \item Let $p\in\rC$. If $p\le0$ then any $a\cdot b$ with $a\in\rA,b\in\rB,a,b>0$
+      satisfies $p<a\cdot b\in\rC$, so $r=a\cdot b$ is the desired element of $rC$.
+      OTOH, if $p>0$ then $p=a\cdot b$ for $a\in\rA,b\in\rB,a,b>0$. Choose $s\in\rA$
+      s.t.\ $a<s$, $t\in\rB$ s.t.\ $t>b$. Then $p=a\cdot b<s\cdot t\in\rC$,
+      so $r=s\cdot t$ does the job.
+  \end{enumerate}
+
+
+\item[Definition.] Let $\rA,\rB\in\R$.
+  \begin{enumerate}[1)]
+  \item If $\rA>\rZero,\rB>\rZero$ we set
+      $\rA\cdot\rB=\{q\in\Q\;|\;q\le 0\}\cup
+       \{a\cdot b\;|\;a\in\rA,a>0,b\in\rB,b>0\}\in\R$
+  \item If $\rA=\rZero$ or $\rB=\rZero$, we set $\rA\cdot\rB=0\in\R$.
+  \item If $\rA>\rZero$ and $\rB<\rZero$ we set
+      $\rA\cdot\rB = -(\rA\cdot(-\rB))\in\R$.
+  \item If $\rA<0$ and $\rB>0$ we set $\rA\cdot\rB = -((-\rA)\cdot\rB)\in\R$.
+  \item If $\rA<0$ and $\rB<0$ we set $\rA\cdot\rB = (-\rA)\cdot(-\rB)\in\R$.
+  \end{enumerate}
+
+
+\item[Theorem.] $\{\R,\cdot\}$ satisifes (M1-5) with $1_\R=\rC$, and:
+  \begin{itemize}
+  \item $\rA>\rZero\implies\inv\rA=\{q\in\Q\;|\;q\le0\}\cup
+      \{q\in\Q\;|\;q>0,\exists p>q\;\text{s.t.}\;\inv{p}\not\in\rA\}\in\R$
+  \item $\rA<0\implies\inv{\rA}=-\inv{(-\rA)}$
+  \end{itemize}
+  % Prove everything with A,B both positive, then go back and use different cases.
+  % Also need to show that \rA inverse is a cut.
+
+
+\item[Theorem.] If $\rA,\rB>0$ then $\rA\cdot\rB>0$.
+\item[Proof.] By definition $\rC_0\subseteq\rA\cdot\rB\implies\rZero\le\rA\cdot\rB$.
+    It's clear that equality is impossible since $\rA>0,\rB>0$. $\hfill\square$
+\end{description}
+
+\subsubsection{Distributivity}
+\begin{description}
+\item[Theorem.] Let $\rA,\rB,\rC\in\R$. Then
+    $\rA\cdot(\rB+\rC)=\rA\cdot\rB+\rA\cdot\rC$
+\item[Proof.] We prove only the case $\rA,\rB,\rC>0$:\\
+    Let $p\in\rA\cdot(\rB+\rC)$. If $p\le0$ then $p\in\rA\cdot\rB+\rA\cdot\rC$
+    is trivial. If $p>0$ then $p=a\cdot(b+c)$ for $a\in\rA,b\in\rB,c\in\rC$ with
+    $a>0,b+c>0$. Regardless of sign of $b$ or $c$, $a\cdot b\in\rA\cdot\rB$,
+    $a\cdot c\in\rA\cdot\rC$. Hence
+    $p=a\cdot(b+c)=a\cdot b+a\cdot c\in\rA\cdot\rB+\rA\cdot\rC$.
+    So, $\rA\cdot(\rB+\rC)\subseteq\rA\cdot\rC+\rA\cdot\rC$.\\
+    We claim the opposite inclusion is true. Let
+    $p\in\rA\cdot\rB+\rA\cdot\rC\implies p=r+s$ for $r\in\rA\cdot\rB, s\in\rA\cdot\rC$.
+    If $p\le0$ we know $p\in\rA\cdot(\rB+\rC)$ by definition, so it suffices
+    to assume $p>0$. Then $0<p=r+s\implies$ at least one of $r,s$ is $\ge0$.
+    \begin{enumerate}[C{a}se 1:]
+    \item $r>0,s\le0$. Then $r=a\cdot b$ for $a\in\rA,b\in\rB,a,b>0$. Then
+        $p=r+s=a\cdot b+s\le a(b+0)$ and $b+0\in\rB+\rC$
+        since $\rC>0$. So, $p\in\rA(\rB+\rC)$
+    \item $s>0,r\le 0$ A similar argument shows $p\in\rA(\rB+\rC)$
+    \item $r>0,s>0$ Then $r=ab$, $s=\hat{a}c,a\hat{a}\in\rA,b\in\rB,c\in\rC,a,\hat{a},b,c>0$
+    \begin{align*}
+    a\ge\hat{a}&\implies p=r+s= ab+\hat{a}c\le ab+ac = a(b+c)\in \rA(\rB+\rC)\\
+    a<\hat{a}&\implies p=r+s=ab+\hat{a}c\le \hat{a}b+\hat{c}=\hat{a}(b+c)\in\rA(\rB+\rC)
+    \end{align*}
+    In either case, $p\in\rA(\rB+\rC)$
+    Therefore $p\in\rA(\rB+\rC)$ and hence $\rA\rB+\rA\rC\subseteq\rA(\rB+\rC)$
+    \end{enumerate}
+\end{description}
+
+% 9/16
+
+\subsubsection{$\Q\subseteq\R$}
+\begin{description}
+\item[Theorem.] For $p,q\in\Q$ the following are true:
+  \begin{enumerate}[(1)]
+  \item $\rC_{p+q} = \rC_p+\rC_q$
+  \item $\rC_{-p} = -\rC_p$
+  \item $\rC_{pq} = \rC_p\rC_q$
+  \item If $p\ne0$ then $\rC_{\inv{p}} = \inv{\rC_p}$
+  \item $p<q$ in $\Q \iff \rC_p<\rC_q$ in $\R$
+  \end{enumerate}
+
+\item[Definition.] For $q\in\Q$ we write $q=\rC_q\in\R$.
+    This allows us to say $\Q\subseteq\R$.
+\end{description}
+
+\subsubsection{$\R$ is Archimedean}
+\begin{description}
+\item[Theorem.] $\R$ is Archimedean.
+\item[Proof.] HW. $\hfill\square$
+\end{description}
+
+Now we combine steps to finish.
+\begin{description}
+\item[Theorem.] There exists an ordered field $\R$ that satisfies the
+    least-upper-bound property. Moreover,
+    \begin{enumerate}[(1)]
+    \item $\Q\subseteq\R$
+    \item $\R$ is unique: if $\F$ is another ordered field satisfying
+        the least-upper-bound property, then $\F=\R$ (up to isomorphism).
+    \item $\R$ is Archimedean.
+    \end{enumerate}
+
+\item[Proof.] The basic assertion is steps 0-4. Step 5 is (1), step 6 is (3).
+    The proof of (2) is in this week's reading. $\hfill\square$
+\end{description}
+
+\subsection{Properties of $\R$}
+We know that $\R$ is Archimedean, and from homework we know the following.
+
+\begin{description}
+\item[Proposition.] $\R$ satisfies the following.
+  \begin{enumerate}[(1)]
+  \item $\R$ is Archimedean: $\forall x\in\R, x>0,\exists n\in\N$ s.t.\ $x<n$.
+  \item $\N\subset\R$ is not bounded above.
+  \item $\inf(\{1/n\;|\;n\in\N,n\ge1\})=0$
+  \item $\forall x\in\R$ the set $B(x)=\{m\in\Z\;|\;x<m\}$ has a minimum $\in\Z$.
+  \item $\forall x,y\in\R, x<y, \exists q\in\Q$ s.t.\ $x<q<y$.
+  \end{enumerate}
+
+\item[Remarks.]\text{}\vspace{-0.2in}\\
+  \begin{enumerate}[1)]
+  \item (5) is interpreted as ``the density of $\Q\in\R$''. That is to say,
+      any element $x\in\R$ can be approximated to arbitrary accuracy by elements
+      of $\Q$. Indeed, for $n\ge 1 $ choose $q$ s.t.\
+      \[
+      x-\frac{1}{n}<q<x+\frac{1}{n}\implies 1-\frac{1}{n}<x-1<\frac{1}{n}
+      \]
+      By extension, $\Q_b$ is also dense in $\R$ for all $b\in\N, b\ge2$
+  \item (5) allows us to define the ``integer part'' of any $x\in\R$. Indeed
+      for any $x\in\R$ we set $\lfloor x\rfloor = \min(B(x))-1\in\Z$. Then
+      $\lfloor x\rfloor\le x < \lfloor x\rfloor +1$ and $0\ge x-\lfloor x\rfloor<1$.
+  \end{enumerate}
+
+
+\item[Theorem.] Let $x\in\R$ satisfy $x>0$ and $n\in\N$ s.t.\ $n\ge1$.
+    Then $\exists! y\in\R$ s.t.\ $y>0$ and $y^n=x$.
+
+\item[Proof.] The case $n=1$ is trivial, so assume that $n\ge 2$.
+    Set $E=\{z\in\R\;|\;z>0\text{ and }z^n<x\}$. We want to show that
+    $E\ne\emptyset$ and is bounded above. Set $t=x/(x+x)$ so $0<t<1$
+    and $t<x$. Hence $0<t^n<t<x$, and so $t\in E$, which means $E\ne\emptyset$.\\
+    Set $s=1+x$. Then $1<s$ and $x<s$. By a similar argument $x<s<s^n$,
+    so if $z\in E$ then $z^n<x<s^n\implies z<s$. Hence $s$ is an upper bound of $E$.
+    By the least-upper-bound property $\exists y\in\R$ s.t.\ $y=\sup E$.\\
+    Notice that $t\in E\implies 0<t<y$, so $y>0$.\\
+    We claim that $y^n<x$ and $y^n>x$ are both impossible.\\
+
+    Claim: For $b,a\in\R$ we have
+      $b^n-a^n=(b-a)(b^{n-1}+b^{n-2}a+\cdots+ba^{n-2}+a^{n-1})$.\\
+    (*) Then if $0<a<b$ we may estimate $0<b^n-a^n<(b-a)nb^{n-1}$.
+    \begin{enumerate}[1)]
+    \item Suppose $y^n<x$. Choose $h\in\R$ s.t.\ $0<h<1$ and
+      $h<\frac{x-y^n}{n(y+1)^{n-1}}$.
+      Then we use (*) with $b=y+h,a=y$ to see that
+      \[
+      0<(y+h)^n-y^n<hn(y+h)^{n-1}<x-y^n \implies
+      (y+h)^n<x,y>0 \implies y+h\in E
+      \]
+      But $y<y+h$ and so $y$ is not an upper bound of $E$ --- contradiction.
+    \item Suppose $x<y^n$. Choose
+        $0<k<\frac{y^n-x}{ny^{n-1}}<\frac{y^n}{ny^{n-1}}=y/n<y$,
+        so $0<y-k$. Set $b=y$ and $a=y-k$ in (*) to see
+        \[
+        y^n-(y-k)^n<nky^{n-1}<y^n-x\implies x<(y-k)^n
+        \]
+        So if $z\in E$ then $0<z^n<(y-k)^n\implies z<y-k$,
+        so $y-k$ is an upper bound of $E$, but $y-k<y$, contradicting
+        the fact that $y$ is the \textit{least} upper bound.
+    \end{enumerate}
+    Thus, by trichotomy, $y^n=x$.\\
+    Uniqueness is easy: if $y_1^n=y_2^n$
+    and $y_1<y_2$, we get $y_1^n<y_2^n$ --- contradiction. $\hfill\square$
+
+
+\item[Definition.] Let $n\ge1$. For $x\in\R, x>0$ we write $x^{\frac{1}{n}}=y$
+    where $y^n=x$. We set $0^{\frac{1}{n}}=0$. Then we define the function
+    $(\cdot)^{\frac{1}{n}}:\{x\in\R\;|\;x\ge0\}\rightarrow\{x\in\R\;|\;x\ge0\}$
+    via $x^{\frac{1}{n}}=y$ s.t.\ $y^n=x$.
+
+\item[Corollary.] If $x,y\in\R, x,y\ge0$ and $n\in\N$ s.t.\ $n\ge1$, then
+  $x^{\frac{1}{n}}y^{\frac{1}{n}}=(xy)^{\frac{1}{n}}$.
+\item[Proof.] $(x^{\frac{1}{n}})^n=x,(y^{\frac{1}{n}})^n=y\implies
+    xy=(x^{\frac{1}{n}})^n(y^{\frac{1}{n}})^n=(x^{\frac{1}{n}}y^{\frac{1}{n}})^n$.
+    But then $(xy)^{\frac{1}{n}}=x^{\frac{1}{n}}y^{\frac{1}{n}}$ by definition.
+
+\item[Corollary.] Let $n\in\N$ with $n\ge1$, $k\in\N$ with $k\ge2$. Suppose
+    $x_y\in\R$ with $x_i\ge0$ for $i=1,\ldots,k$. Then
+    $(x_1\cdot x_2\cdots x_k)^{\frac{1}{n}}=
+      x_1^{\frac{1}{n}}\cdot x_2^{\frac{1}{n}}\cdots x_k^{\frac{1}{n}}$.
+\item[Proof.] Exercise: use induction on $k$.
+
+
+\item[Lemma.] Let $x\in\R$ satisfy $x>0$ and let $m,n,p,q\in\Z$ with $n,q>0$.\\
+    If $\frac{m}{n}=\frac{p}{q}$, then $(x^m)^\frac{1}{n}=(x^p)^\frac{1}{q}$.
+\item[Proof.] Since $mq=np\in\Z$ we know that $x^{mq}=x^{np}$. Then by the
+    uniqueness of $q^{th}$ roots we have
+    \newcommand{\xpq}{(x^p)^\frac{1}{q}}
+    \[
+    x^{mq}=(x^m)^q=x^{np}\implies x^m=(x^{np})^\frac{1}{q}
+    =(\underbrace{x^p\cdot x^p\cdots x^p}_\text{n times})^\frac{1}{q}
+    =\underbrace{\xpq\xpq\cdot x\xpq}_\text{n times}
+    =\left[(x^p)^\frac{1}{q}\right]^n
+    \]
+    Again by uniqueness of roots, $(x^p)^\frac{1}{q}=(x^m)^\frac{1}{n}$.
+    $\hfill\square$
+
+
+\item[Definition.] For $r\in\Q$ with $r=m/n,n>0$ we set $x^r=(x^m)^\frac{1}{n}$
+    whenever $x>0$. The lemma guarantees that this is well-defined: if
+    if $r=m/n=p/q, n,q>0$, then $(x^m)^\frac{1}{n}=(x^p)^\frac{1}{q}$.
+
+\item[Definition.] For $x\in\R$ we define
+  \[
+  |x| = \begin{cases}
+        x & x>0\\
+        0 & x=0\\
+        -x & x<0
+        \end{cases}
+  \]
+  We may view $|\cdot|:\R\rightarrow\{x\in\R\;|\;x\ge0\}$ as a function.
+  We call $|x|$ the absolute value of $x$.
+
+
+\item[Proposition (Properties of $|\cdot|$).]\text{}\vspace{-0.2in}\\
+  \begin{enumerate}
+  \item $|x|\ge0\;\forall x\in\R$, and $|x|=0\iff0=x$
+  \item $\forall x,y\in\R, |x|<y\iff -y<x<y$
+  \item $\forall x,y\in\R, |xy|=|x||y|$
+  \item $\forall x,y\in\R, |x+y|\le|x|+|y|$
+  \item $\forall x,y\in\R, ||x|-|y||\le|x-y|$ % follows from 4
+  \end{enumerate}
+\end{description}
+
+\section{Sequences}
+\begin{description}
+\item[Definition.] Let $E$ be a set and $l\in\Z$. We say that a function
+    $a:\{n\in\Z\;|\; n\ge l\}\rightarrow E$ is a sequence
+    in $E$. We write $a_n=a(n)\in E$. Typically $l=0$ or $l=1$.
+    We will also usually write $\{a_n\}^\infty_{n=l}\subseteq E$
+    to denote the sequence and the set in which it takes values.
+
+\item[Examples.]\text{}\vspace{-0.2in}\\
+  \begin{enumerate}[(1)]
+  \item $a_n=\oneOver{n}$ for $n\ge1$ ($E=\Q\subseteq\R, l=1$)
+  \item Let $\F$ be a field and $x\in\F$. Let $a_n=x^n\in\F$
+      $\forall n\ge0$. ($E=\F,l=0$)
+  \item Let $a_n=3^\oneOver{n}$ for $n\ge1$. Here ($E=\R, l=1$)
+  \end{enumerate}
+\end{description}
+For the rest of this section we set $E=\R$.
+
+\subsection{Convergence}
+\begin{description}
+\item[Definition.] Let $\{a_n\}^\infty_{n=l}\subseteq\R$. We say that
+    $\{a_n\}$ converges to $a\in\R$ if and only if $\forall\epsilon\in\R,
+    \epsilon>0$ $\exists N\in\Z,N\ge l$ s.t.\ if $n\ge N$,
+    then $|a_n-a|<\epsilon$.\\
+    We write $a=\lim_{n\to\infty} a_n$ or $a_n\to a$ as $n\to\infty$
+    when $\{a_n\}^\infty_{n=l}$ converges to $a$.
+
+
+\item[Examples.]\text{}\vspace{-0.2in}\\
+  \begin{enumerate}[(1)]
+  \item $a_n=\oneOver{n}, n\ge 1$. We claim $a_n\to 0$ as $n\to\infty$.
+      Let $\epsilon>0$. We want to find $N\in\N$ s.t.\
+      $n\ge N\implies |a_n-a|<\epsilon$. Notice that
+      $|a_n-0|=|\oneOver{n}|=\oneOver{n}$, so it suffices to show that
+      $\oneOver{n}<\epsilon$ whenever $n\ge N$. $\R$ satisfies the
+      Archimedean property. Hence $\exists N\in\N$ s.t.\ $\oneOver{\epsilon}<N$.
+      Then $n\ge N\implies\oneOver{\epsilon}<N\le n\implies\oneOver{n}<\epsilon$.
+      Since $\epsilon>0$ was arbitrary, we deduce that $a_n\to0$.
+
+  \item $a_n=\oneOver{n^2},n\ge1$. We claim $a_n\to0$. Let $\epsilon>0$
+      and choose the same $N$ as in (1). Then if $n\ge N$ we know
+      $\oneOver{\epsilon}< N\le n\le n^2\implies|a_n-0|=\oneOver{n^2}<\epsilon$.
+      Since $\epsilon>0$ was arbitrary, we conclude that $a_n\to0$.
+  
+  \item $a_n=n,n\ge0$. We claim that $a_n$ does not converge.
+      If not, then $\{a_n\}$ does converge, and so $\exists a\in\R$ s.t.\
+      $a_n\to a$ as $n\to\infty$. Choose $\epsilon=1$. Then $\exists N\in\N$
+      s.t.\ $n\ge N\implies|a_n-a|<\epsilon=1$. Then $n\le N\implies
+      n=|a_n|=|a_n-a+a|\le|a_n-a|+|a|<1+|a|$, which contradicts
+      the Arcihmedean property.
+  \end{enumerate}
+
+
+\item[Lemma.] If $a_n\to a$ and $a_n\to b$ as $n]to]infty$, then $a=b$.
+    That is to say, limits are unique.
+\item[Proof.] If not, then $|a-b|>0$. Set $\epsilon=\frac{|a-b|}{4}>0$.
+    Since $a_n\to a\;\exists N_1,N_2$ s.t.\ 
+    \[\begin{cases}
+    n\ge N_1\implies |a_n-a|<\epsilon=\frac{a-b}{4}\\
+    n\ge N_2\implies |a_n-b|<\epsilon=\frac{a-b}{4}
+    \end{cases}\]
+    Se $N=\max\{N_1,N_2\}$, Then $n\ge N\implies |a-b|=|a-a_n+a_n-b|
+    \le |a-a_n|+|b-a_n|<\frac{a-b}{4}+\frac{a-b}{4}=\frac{a-b}{2}\implies
+    |a-b|<0\implies|a-b|-\frac{a-b}{2}<0\implies|a-b|<0$, contradiction.
+
+% 9/20
+
+\item[Definition.] We say that a sequence $\{a_n\}_{n=l}^\infty\subseteq\R$
+    is bounded if and only if $\exists M\in\R with M>0$ s.t.\ $|a_n|<M$
+    $\forall n\ge l$.
+
+\item[Lemma.] If $\{a_n\}_{n=l}^\infty\subseteq\R$ converges, then
+    $\{a_n\}$ is bounded.
+\item[Proof.] Since $\{a_n\}$ is convergent, we know $\exists a\in\R$
+    s.t.\ $a_n\to a$ as $n\to\infty$. Choose $\epsilon=1$. Then
+    $\exists N$ s.t.\ $n\ge N\implies|a_n-a|<\epsilon=1$. In particular,
+    $n\ge N\implies |a_n|\implies |a_n-a+a|\le|a_n-a|+|a|<1+|a|$.
+    Let $K=\max\{|a_l|,|a_{l+1}|,\ldots,|a_{N-1}|\}\in\R$. Then
+    $M=\max\{K,1+|a|\}$ satisfies $|a_n|<M$ $\forall n\ge l$.
+    Hence $\{a_n\}$ is bounded. $\hfill\square$
+
+
+\item[Definition.] Given $\{a_n\},\{b_n\}\subseteq\R$, we define
+    $\{a_n+b_n\}\subseteq\R$ to be the sequence whose elements are
+    $a_n+b_n$. We similarly define $\{c\cdot a_n\}$ for fixed $c\in\R$,
+    $\{a_n\cdot b_n\}$, and $\{a_n/b_n\}$, provided that $b_n\ne0$, $n\ge l$.
+
+\item[Theorem (Algebra of convergence).] Let $\{a_n\}_{n=1}^\infty,
+    \{b_n\}_{n=0}^\infty\subseteq\R$,
+    $c\in\R$, and assume that $a_n\to a$, $b_n\to b$ as $n\to\infty$. Then
+    the following hold:
+    \begin{enumerate}[(1)]
+    \item $a_n+b_n\to a+b$ as $n\to\infty$
+    \item $c\cdot a_n\to c\cdot a$ as $n\to\infty$
+    \item $a_n\cdot b_n\to a\cdot b$ as $n\to\infty$
+    \item If $b_n\ne 0$ and $b\ne0$ then
+        $\frac{a_n}{b_n}\to\frac{a}{b}$ as $n\to\infty$
+    \end{enumerate}
+
+\item[Proof.] (1), (2) are in next week's HW.
+    \begin{enumerate}[(1)]
+    \setcounter{enumi}{2}
+    \item Notice first that \[
+        |a_nb_n-ab|=|a_nb_n-ab_n+ab_n-ab|\le
+        |a_nb_n-ab_n|+|ab_n-ab|=|b_n||a_n-a|+|a||b_n-b|
+        \]
+        Since $b_n\to b$ we know that $\exists M>0$ s.t.\
+        $|b_n|\le M$ $\forall n\ge l$. Let $\epsilon>0$. Then
+        \[\text{Since}
+        \begin{cases}
+        \;a_n\to a\;\text{we may choose}\; N_1
+            \;\text{s.t.}\; n\ge N_1, |a_n-a|<\frac{\epsilon}{2M}\\
+        \;b_n\to b\;\text{we may choose}\; N_2
+            \;\text{s.t.}\; n\ge N_2, |b_n-b|<\frac{\epsilon}{2(1+|a|)}
+        \end{cases}
+        \]
+        Then set $N=\max\{N_1,N_2\}$. So if $n\ge N$ we know
+        \[
+        |a_nb_n-ab|\le|b_n||a_n-a|+|a||b_n-b|<M|a_n-a|+|a||b_n-b|<
+        \frac{M\cdot\epsilon}{2M}+\frac{|a|\epsilon}{2(1+|a|)}<
+        \frac{\epsilon}{2}+\frac{\epsilon}{2}=\epsilon
+        \]
+        Since $\epsilon$ was arbitrary, we deduce that $a_nb_n\to ab$.
+
+    \item First notice that \[
+        \abs{\frac{a_n}{b_n}-\frac{a}{b}}=\abs{\frac{a_nb-ab_n}{b_nb}}=
+        \abs{\frac{a_nb-ab+ab-ab_n}{b_nb}}\le\frac{\abs{a_nb-ab}}{|b_n||b|}
+        +\frac{\abs{ab-ab_n}}{|b||b_n|}=\frac{\abs{a_n-a}}{|b_n|}+
+        \frac{|a|}{|b||b_n|}|b_n-b|
+        \]
+        Let $\epsilon>0$. Since $b_n\to b\ne0$ we know that $\exists N_1$
+        s.t.\ $n\ge N_1\implies|b_n-b|<\frac{|b|}{2}$. So
+        \begin{align*}
+        n\ge N\implies& 0<|b|=|b-b_n+b_n|\le|b-b_n|+|b_n|<\frac{|b|}{2}+|b_n|\\
+        \implies& 0<\frac{|b|}{2}\le|b_n|\implies0<\oneOver{|b_n|}<\frac{2}{|b|}
+        \end{align*}
+        \[
+        \text{OTOH}
+        \begin{cases}
+        a_n\to a\implies\exists N_2\;\text{s.t.}\;
+          \left(n\ge N_2\implies |a_n-a|<\frac{\epsilon}{4}|b|\right)\\
+        b_n\to b\implies\exists N_3\;\text{s.t.}\;
+          \left(n\ge N_3\implies|b_n-b|<\frac{\epsilon}{1+|a|}\frac{|b|^2}{4}\right)
+        \end{cases}
+        \]
+        Set $N=\max\{N_1,N_2,N_3\}$. Then for $n\ge N$ we know
+        \[
+        \abs{\frac{a_n}{b_n}-\frac{a}{b}}\le\frac{\abs{a_n-a}}{|b_n|}+
+        \frac{|a|}{|b_n||b|}\abs{b_n-b}<\frac{2}{|b|}|a_n-a|+
+        \frac{2|a|}{|b|^2}|b_n-b|<\frac{\epsilon}{2}+\frac{\epsilon}{2}
+        \left(\frac{|a|}{1+|a|}\right)<\epsilon
+        \]
+        Since $\epsilon>0$ was abritrary, we deduce that
+        $\frac{a_n}{b_n}\to\frac{a}{b}$ as $n\to\infty$.
+    \end{enumerate}
+
+
+\item[Lemma.] Let $\{a_n\}_{n=l}^\infty\subseteq\R$ converge to $a\in\R$.
+    Then $\forall \epsilon>0$ $\exists N$ s.t.\
+    $m,n\ge N\implies |a_n-a_m|<\epsilon$.
+
+\item[Proof.] Let $\epsilon>0$. Since $a_n\to a$ we can choose $N$ s.t.\
+    $n\ge N\implies|a_n-a|<\frac{\epsilon}{2}$. Then \[
+    m,n\ge N\implies |a_n-a_m|=|a_n-a+a-a_m|
+    \le|a_n-a|+|a_M-a|<\frac{\epsilon}{2}+ \frac{\epsilon}{2}=\epsilon
+    \]
+
+
+\item[Definition.] We say $\{a_n\}_{n=l}^\infty\subseteq\R$ is
+    \textbf{Cauchy} if and only if $\forall\epsilon>0$ $\exists N$
+    s.t.\ $m,n\ge N\implies|a_n-a_m|<\epsilon$.
+
+
+\item[Lemma.] If $\{a_n\}$ is Cauchy, then it's bounded.
+\item[Proof.] Let $\epsilon=1$. Then $\exists N$ s.t.\
+    $m,n\ge N\implies|a_m-a_n|<1$. In particular, $n\ge N\implies
+    |a_n-a_N|<1\implies|a_n|<|a_n-a_N|+|a_N|<1+|a_N|$. Set
+    $M=\max\{1+|a_N|,K\}$, where $K=\max\{|a_l|,\ldots,|a_{N-1}|\}$.
+    Then $|a_n|<M$ $\forall n\ge l$. Hence $\{a_n\}$ is bounded.
+    $\hfill\square$
+
+
+\item[Theorem.] Let $\{a_n\}\subseteq\R$. Then $\{a_n\}$ converges
+    $\iff\{a_n\}$ is Cauchy.
+
+\item[Proof.]\text{}\vspace{-0.2in}\\
+  \begin{description}
+  \item[$\Longrightarrow$:] is the $2^{nd}$ to last lemma.
+  \item[$\Longleftarrow$:] Suppose $\{a_n\}$ is Cauchy.
+      This means $|a_n|<M$ $\forall n\ge l$ by the last lemma.
+      Set $E=\{x\in\R\;|\;\exists N\;\text{s.t.}\;n\ge N\implies x<a_n\}$.
+      Note that $-M<a_n$ $\forall n\ge l$ and so $-M\in E$, so $E\ne0$.
+      OTOH, $x\in E\implies\exists N_x$ s.t.\ $n\ge N_x\implies x<a_n<M$,
+      and so $M$ is an upper bound of $E$. $\R$ satisfies the l.u.b.\
+      property, so we know that $a=\sup E\in\R$. We claim that
+      $a_n\to a$ as $n\to\infty$.\\
+      Let $\epsilon>0$. Then since $\{a_n\}$ is Cauchy $\exists N$
+      s.t.\ $m,n\ge N\implies|a_n-a_m|<\frac{\epsilon}{2}$.
+      In particular, $|a_n-a_N|<\frac{\epsilon}{2}$ when $n\ge N$.
+      Then \[
+      n\ge N\implies a_N-\frac{\epsilon}{2}<a_n\implies
+      a_N-\frac{\epsilon}{2}\in E\implies a_N-\frac{\epsilon}{2}\le a
+      \]
+      OTOH \[
+      x\in E\implies \exists N_x\;\text{s.t.}\;\left(
+        n\ge N_x\implies x<a_n<a_N+\frac{\epsilon}{2}\right)
+      \]
+      Hence $a_N+\frac{\epsilon}{2}$ is an upper bound of $E$
+      $\implies a\le a_N+\frac{\epsilon}{2}$. Combining, we see that
+      $|a-a_N<\frac{\epsilon}{2}$. But then $n\ge N$ then
+      $|a_n-a|\le|a_n-a_N|+|a_N-a|<\frac{\epsilon}{2}+\frac{\epsilon}{2}=\epsilon$.
+
+  \end{description}
+
+
+% 9/23
+
+\item[Lemma (Squeeze lemma):] Let $\{a_n\}_{n=l}^\infty,
+    \{b_n\}_{n=l}^\infty,\{c_n\}_{n=l}^\infty\subseteq\R$ and suppose
+    that $a_n\to a, c_n\to a$ as $n\to\infty$. If $\exists K\ge l$ s.t.
+    $a_n\le b_n\le c_n$ $\forall n\ge K$ then $b_n\to a$ as $n\to\infty$.
+
+\item[Proof.] Let $\epsilon >0$. Since $a_n\to a$, $c_n\to a$
+    $\exists N_1,N_2$ s.t. \[
+      \begin{cases}
+      n\ge N_1 \implies |a_n-a|<\epsilon & (-\epsilon<a_n-a<\epsilon)\\
+      n\ge N_2 \implies |c_n-a|<\epsilon & (-\epsilon<c_n-a<\epsilon)
+      \end{cases}
+    \]
+    Set $N=\max\{N_1,N_2,K\}$. Then $n\ge N\implies -\epsilon<a_n-a\le
+      b_n-a\le c_n-a<\epsilon\implies|b_n-a|<\epsilon$.
+    Since $\epsilon$ was arbitrary, we deduce that $b_n\to a$ as $n\to\infty$.
+    $\hfill\square$
+ 
+
+ \item[Examples:]\text{}\vspace{-0.2in}\\
+  \begin{enumerate}[1)]
+  \item Suppose $a_n\to 0$ and $\{b_n\}$ is bounded, i.e.\ $|b_n|\le M$
+      $\forall n\ge l$. Then $|a_nb_n|=|a_n||b_n|\le|a_n|M$. From HW
+      $c_n\to 0\iff |c_n|\to0$. Then
+      $\stackrel{\to0}{0}\le|a_nb_n|\le\stackrel{\to0}{|a_n|}M$,
+      and by the Squeeze lemma $|a_nb_n|\to0\implies a_nb_n\to0$.
+  \item Fix $k\in\N$ with $k\ge1$. Set $a_n=\oneOver{n^k},n\ge 1$. Then
+      $\stackrel{\to0}{0}\le\oneOver{n^k}\le\stackrel{\to0}{\oneOver{n}}
+      \impBy{(SL)} \oneOver{n^k}\to0$
+  \item Fix $k\in\N$ with $k\ge2$. Let $a_n=\oneOver{k^n},n\ge0$. Claim:
+      $n\le k^n$ $\forall n\in\N$. Proof is by induction on $n$. Then
+      we know $0\le\oneOver{k^n}\le\oneOver{n}$, so by the Squeeze lemma
+      $\oneOver{k^n}\to0$ as $n\to\infty$.
+  \end{enumerate}
+
+\end{description}
+
+\subsection{Monotonicity and limsup, liminf}
+
+\begin{description}
+\item[Definition.] Let $\{a_n\}_{n=l}^\infty\subseteq\R$. We say that
+    $\{a_n\}$ is
+    \begin{enumerate}[1)]
+    \item increasing iff $a_n<a_{n+1}$ $\forall n\ge l$
+    \item non-decreasing iff $a_n\le a_{n+1}$ $\forall n\ge l$
+    \item decreasing iff $a_{n+1}<a_n$ $\forall n\ge l$
+    \item non-increasing iff $a_{n+1}\le a_n$ $\forall n\ge l$
+    \end{enumerate}
+    We say $\{a_n\}$ is monotone iff it is either
+    non-increasing or non-decreasing.\\
+    \textit{Remark:} increasing $\implies$ non-decreasing;
+        decreasing $\implies$ non-increasing.
+
+
+\item[Theorem.] Suppose that $\{a_n\}_{n=l}^\infty\subseteq\R$ is monotone.\\
+    Then $\{a_n\}_{n=0}^\infty$ is bounded
+    $\iff\{a_n\}_{n=l}^\infty$ is convergent.
+
+\item[Proof.] $\Leftarrow$ is done in a previous lemma. For the
+    forwards direction we'll prove the result when the sequence is
+    non-decreasing. The other case is handled by a similar argument.
+    Set $E=\{a_n\;|\;n\ge l\}\subseteq\R$. Clearly $E\ne\emptyset$.
+    Also, since $\{a_n\}_{n=l}^\infty$ is bounded, the set $E$
+    is as well, and in particular it's bounded above. By the
+    least-upper-bound property of $\R$ $\exists a=\sup E\in\R$.
+    We claim that $a=\lim_{n\to\infty}a_n$. Let $\epsilon>0$.
+    Since $a=\sup E$ we know that $a-\epsilon$ is not an upper bound
+    of $E$, and hence $\exists N\ge l$ s.t.\ $a-\epsilon<a_N$.
+    But since the sequence is non-decreasing, $a_n\le a_{n+1}$
+    $\forall n\ge l$, and so $n\ge N\implies a_N\le a_n$.
+    Then \[
+    n\ge N\implies a-\epsilon<a_N\le a_n\le a
+    \]
+    because $a$ is an upper bound of $E$. So \[
+    n\ge N\implies-\epsilon<a_N-a\le0\implies |a_n-a|<\epsilon
+    \]
+    Since $\epsilon>0$ was arbitrary, we deduce that
+    $a_n\to a$ as $n\to\infty$. $\hfill\square$
+
+
+\item[Lemma.] Suppose that $\sAi{n=0}\subseteq\R$ is bounded.
+    Set \begin{align*}
+    S_m&=\sup\{a_n\;|\;n\ge m\}\\
+    I_m&=\inf\{a_n\;|\;n\ge m\}
+    \end{align*}
+    Then $S_m,I_m\in\R$ are well-defined $\forall m\ge l$ and
+    $\{S_m\}_{m=l}^\infty$ is non-increasing, and
+    $\{I_m\}_{m=l}^\infty$ is non-decreasing. Both sequences
+    are bounded.
+
+\item[Proof.] Let $E_m=\{a_n\;|\;n\ge m\}$. The set $E$ is bounded
+    since the sequence is. As such, $\sup E_m=S_m\in\R$. Similarly,
+    $\inf E_m=I_m\in\R$. Also, $E_{m+1}\subseteq E_m$, so
+    \[
+    \begin{cases}
+    S_{m+1}=\sup E_{m+1}\le\sup E_m=S_m &
+        \text{so}\;\{S_m\}\;\text{is non-increasing}\\
+    I_m=\inf E_m\le \inf E_{m+1}=I_{m+1} &
+        \text{so}\;\{I_m\}\;\text{is non-decreasing}
+    \end{cases}
+    \]
+    It's easy to see that if $|a_n|\le M$ $\forall n\ge l$ then
+    $|S_m|\le M, |I_m|\le M\;\forall m\ge l$. $\hfill\square$
+
+
+\item[Definition.] Suppose $\sA\subseteq\R$ is bounded. We set
+    \begin{align*}
+    \limsup_{n\to\infty}a_n &= \lim_{m\to\infty}S_m\in\R\\
+    \liminf_{n\to\infty}a_N &= \lim_{m\to\infty}I_m\in\R
+    \end{align*}
+    Both limits exist by the lemma and the previous theorem.\\
+    It's also true that $\liminf_{n\to\infty} a_n\le
+    \limsup_{n\to\infty} a_n$.
+
+\item[Examples.]\text{}\vspace{-0.2in}\\
+  \begin{enumerate}[1)]
+  \item $a_n=(-1)^n, n\ge 0$. $E_m=\{a_n\;|\;n\ge m\}=\{+1,-1\}
+      \;\forall m\ge 0$. $S_m=1,I_m=-1$, so $\limsup_{n\to\infty}
+      (-1)^n=1$, $\liminf_{n\to\infty}(-1)^n=-1$.
+  \item For $n\ge 0$: \[
+      a_n=\begin{cases}
+        3 & n\;\text{even}\\
+        \oneOver{n} & n\;\text{odd}
+        \end{cases}
+      \]
+      $S_m=3\;\forall m, I_m=0\;\forall m$. Then
+      $\limsup_{n\to\infty} a_n=3,\liminf_{n\to\infty} a_n=0$.
+  \item Fix $p\in\N$ with $p\ge 2$. For every $n\ge 1\;
+      \exists! q_n,r_n$ with $0\le r_n<p$ s.t.\
+      $n=pq_n+r_n$. Set $a_n=r_n\;\forall n\ge 1$.
+      Then $\limsup_{n\to\infty}a_n=p-1,\liminf_{n\to\infty}a_n=0$.
+  \end{enumerate}
+\end{description}
+
+% 9/25
+
+\subsection{Subsequences}
+
+\begin{description}
+\item[Definition.] Let $\varphi:\{n\in\Z\;|\;n\ge l\}\to
+    \{n\in\Z\;|\;n\ge l\}$ be order preserving (increasing),
+    which is to say $m<n\implies \varphi(m)<\varphi(n)$.
+    Let $\sA\subseteq\R$ be a sequence. We say the sequence
+    $\{a_{\varphi(k)}\}_{k=l}^\infty$ is a subsequence of $\sA$.
+
+\item[Remarks.]\text{}\vspace{-0.2in}\\
+  \begin{enumerate}[1)]
+  \item $\varphi(k)=k$ is order preserving, so every sequence
+      is a subsequence of itself.
+  \item Not every $a_n$ has to be in the subsequence
+      $\{a_{\varphi(k)}\}_{k=l}^\infty$. For example, if $l=0$
+      then $\varphi(k)=2k$ is order preserving. In this case $a_n$,
+      $n$ odd does not appear in the subsequence
+      $\{a_{\varphi(k)}\}_{k=l}^\infty$.
+  \item We will often write $n_k=\varphi(k)$ to simplify notation.
+      $\{a_{n_k}\}_{k=l}^\infty$ denotes a subsequence.
+  \item From HW1 we know that $k\le \varphi(k)\;\forall k\ge l$.
+  \end{enumerate}
+
+
+\item[Proposition.] Suppose $\sA\subseteq\R$ satisfies
+    $a_n\to a\in\R$ as $n\to\infty$.\\
+    Then any subsequence of $\sA$ also converges to $a$.
+
+\item[Proof.] Let $\{a_{\varphi(k)}\}_{k=l}^\infty$ be a subsequence
+    of $\sA$. Let $\epsilon>0$. Since $a_n\to a$ as $n\to \infty$,
+    $\exists N\ge l$ s.t.\ $n\ge N\implies |a_n-a|<\epsilon$.
+    We claim $\exists K\ge l$ s.t.\ $k\ge K\implies \varphi(k)\ge N$.
+    If not, then $\varphi(k)\le N\;\forall k\ge l$, but
+    $k\le \varphi(k)<N\;\forall k\ge l$ is a contradiction.
+    Hence, the claim is true.  Then
+    $k\ge K\implies \varphi(k)\ge N\implies |a_{\varphi(k)}-a|<\epsilon$.
+    Since $\epsilon>0$ was arbitrary, we deduce that $a_{\varphi(k)}\to a$
+    as $k\to\infty$. $\hfill\square$
+
+\item[Remark.] The converse fails. For example: $a_n=(-1)^n$ does not converge,
+    but $a_{2n}$ and $a_{2n+1}$ converge to $1$ and $-1$ respectively.
+
+
+\item[Theorem (Limsup theorem).] Let $\sA\subseteq\R$ be bounded.
+    The following hold.
+    \begin{enumerate}[1)]
+    \item Every subsequence of $\sA$ is bounded.
+    \item If $\{a_{n_k}\}_{k=l}^\infty$ is a subsequence, then
+        $\limsup_{k\to\infty}a_{n_k}\le\limsup_{n\to\infty}a_n$.
+    \item If $\{a_{n_k}\}_{k=l}^\infty$ is a subsequence, then
+        $\liminf_{n\to\infty}a_{n_k}\le\liminf_{k\to\infty}a_n$.
+    \item $\exists$ a subsequence $\{a_{n_k}\}_{k=l}^\infty$ s.t.\
+        $\lim_{k\to\infty}a_{n_k}=\limsup_{n\to\infty}a_n$.
+    \item $\exists$ a subsequence $\{a_{n_k}\}_{k=l}^\infty$ s.t.\
+        $\lim_{k\to\infty}a_{n_k}=\liminf_{n\to\infty}a_n$.
+    \end{enumerate}
+
+\item[Proof.] \text{}\vspace{-0.2in}\\
+  \begin{enumerate}[1)]
+  \item is trivial.
+  \item Since $k\le \varphi(k)$ we have that
+      $\{a_{\varphi(n)}\;|\;n\ge k\}\subseteq\{a_n\;|\;a\ge k\}$
+      for every order preserving $\varphi$. Hence,
+      $\sup\{a_{\varphi(n)}\;|\;n\ge k\}\subseteq\sup\{a_n\;|\;n\ge k\}$.
+      But \[
+        \limsup_{n\to\infty}a_{\varphi(n)}=
+        \lim_{k\to\infty}\sup\{a_{\varphi(n)}\;|\;n\ge k\}\le
+        \lim_{k\to\infty}\sup\{a_n\;|\;n\ge k\}=\limsup_{n\to\infty}a_n
+      \]
+  \item Similar to (2): left as an exercise.
+  \item For convenience let's assume $l=0$. Otherwise we just study
+      $b_n=a_{n+l}, n\ge 0$. Set $n_0=0$. Note that
+      $\limsup_{n\to\infty}a_n=
+      \lim_{k\to\infty}\sup\{a_n\;|\;n\ge k\}=\lim_{k\to\infty}S_k$.
+      There must exists $n_1>n_0$ s.t.\ $S_{n_0+1}-1<a_{n_1}\le S_{n_0+1}$
+      because $S_{n_0+1}=\sup\{a_n\;|\;n\ge n_0+1\}$. Suppose now that
+      we have chosen $n_1<n_2<\cdots<n_k$ s.t.\
+      $S_{n_{j-1}+1}-\oneOver{j}<a_{n_j}\le S_{n_{j-1}}+1$ for $1\le j\le k$.
+      We may then choose $n_{k+1}>n_k$ s.t.\
+      $S_{n_k+1}-\oneOver{k}<a_{n_{k+1}}\le S_{n_k+1}$
+      by the same reason as above. This yields a subsequence
+      $\{a_{n_k}\}_{k=0}^\infty$ s.t.\
+      $S_{1+n_{k-1}}-\oneOver{k}<a_{n_k}\le S_{1+n_{k-1}}\;\forall k\ge 1$.
+      Note that by the earlier proposition,
+      $S_{n_{k-1}+1}\to\lim_{n\to\infty}S_n=\limsup_{n\to\infty}a_n$. So,
+      $S_{1+n_{k-1}}-\oneOver{k}\to\limsup_{n\to\infty}a_n$. By the squeeze
+      lemma, $a_{n_k}\to\limsup_{n\to\infty}a_n$.$\hfill\square$
+  \item Similar to (4): left as an exercise.
+  \end{enumerate}
+
+
+\item[Theorem.] Suppose $\sA\subseteq\R, a\in\R$. The following are equivalent:
+  \begin{enumerate}[1)]
+  \item $a_n\to a$ as $n\to\infty$.
+  \item $\{a_n\}$ is bounded, and every convergent subsequence converges to $a$.
+  \item $\{a_n\}$ is bounded, and $\limsup_{n\to\infty}a_n=\liminf_{n\to\infty}a_n$.
+  \end{enumerate}
+  If any hold, then
+  $\lim_{n\to\infty}a_n=\limsup_{n\to\infty}a_n=\liminf_{n\to\infty}a_n$.
+
+\item[Proof.]\text{}\vspace{-0.2in}\\
+  \begin{description}
+  \item[$(1)\implies(2)$] is done already.
+  \item[$(2)\implies(3)$] Limsup theorem (4)/(5)
+      $\implies\exists$ subsequences
+       $\{a_{\varphi(k)}\}_{k=l}^\infty,
+        \{a_{\psi(k)}\}_{k=l}^\infty$ s.t.\
+       \[
+       a_{\varphi(k)} \to \limsup_{n\to\infty}a_n \qquad
+       a_{\psi(k)} \to \liminf_{n\to\infty}a_n
+       \]
+       as $k\to\infty$. By (2), the limits must agree.
+  \item[$(3)\implies(1)$] We know \[
+      I_m=\inf\{a_n\;|\;n\ge m\}\le \sup\{a_n\;|\;n\ge m\}=S_m
+      \]
+      By (3), $I_m\to\liminf_{n\to\infty}a_n, S_m\to\limsup_{n\to\infty}a_n$,
+      so the squeeze lemma implies that
+      $a_m\to\limsup_{n\to\infty}a_n=\liminf_{n\to\infty}a_m$.
+      $\hfill\square$
+  \end{description}
+
+
+\item[Theorem (Bolzano-Weierstrass):] If $\sA\subseteq\R$ is bounded,
+    $\exists$ a convergent subsequence.
+
+\item[Proof.] Item (4) or (5) of Limsup theorem. $\hfill\square$
+
+
+% 9/27
+\item[Theorem.] Let $\sA\subseteq\R$ be bounded.
+    $E=\{x\in\R\;|\;x\;\text{is a limit of a subsequence of}\;\sA\}$.
+    Then the following hold.
+    \begin{enumerate}[1)]
+    \item $E\ne0$, and $E$ is bounded.
+    \item $\max E=\limsup_{n\to\infty} a_N$, $\min E=\liminf_{n\to\infty}a_n$.
+    \end{enumerate}
+
+\item[Proof.]\text{}\vspace{-0.2in}\\
+  \begin{enumerate}[1)]
+  \item follows from Bolzano-Weierstrass and the fact that $\sA$ is bounded.
+  \item We'll prove only that $\max E=\limsup_{n\to\infty}a_n$. The other
+      identity follows from a similar argument. If $x\in E$ then
+      $x=\lim_{k\to\infty}a_{n_k}$ for some subsequence
+      $\{a_{n_k}\}_{k=l}^\infty$. By Limsup theorem and the limsup/liminf
+      characterization of convergence, we know that
+      \[
+      x=\lim_{k\to\infty}a_{n_k} =
+      \limsup_{k\to\infty}a_{n_k} \le
+      \limsup_{n\to\infty}a_n
+      \]
+      Hence $\limsup_{n\to\infty}a_n$ is an upper bound of $E$.
+      But the Limsup theorem says that there is a subsequence
+      $\{a_{n_k}\}_{k=l}^\infty$ s.t.\
+      $a_{n_k}\stackrel{\to}{k\to\infty}\limsup_{n\to\infty}a_n$.
+      Hence $\limsup_{n\to\infty}a_n\in E$, and so
+      $\max E=\limsup_{n\to\infty}a_n$. $\hfill\square$
+  \end{enumerate}
+\end{description}
+
+\subsection{Some special sequences}
+
+\begin{description}
+\item[Definition.] Given $a_k\in\R$ for $0\le k\le n, n\in\N$, we define
+    \[
+    \sum_{k=0}^n a_k=a_0+a_1+\cdots +a_n
+    \]
+
+\item[Lemma (Binomial Theorem).] Let $x,y\in\R$ and $n\in\N$. Then
+    \[
+    (x+y)^n = \sum_{k=0}^n\binom{n}{k}x^ky_{n-k}
+    \qquad \text{where}\;\binom{n}{k} :=\frac{n!}{k!(n-k)!}\in\N
+    \]
+
+\item[Proof.] By induction. $\hfill\square$
+
+
+\item[Theorem.] In the following assume that $n\ge 1$.
+  \begin{enumerate}[1)]
+  \item Let $x\in\R$ with $x>0$. Then $a_n=\oneOver{n^x}\to0$ as $n\to\infty$.
+  \item Let $x\in\R$ with $x>0$. Then $a_n=x^\oneOver{n}\to1$ as $n\to\infty$.
+  \item Let $x_n=n^\oneOver{n}$. Then $a_n\to1$ as $n\to\infty$.
+  \item Let $\alpha,x\in\R$ with $x>0$.
+      Then $a_n=\frac{n^\alpha}{(1+x)^n}\to0$ as $n\to\infty$.
+  \item Let $x\in\R$ with $|x|<1$. Then $a_n=x^n\to0$ as $n\to\infty$.
+  \end{enumerate}
+
+\item[Proof.]\text{}\vspace{-0.2in}\\
+  \begin{enumerate}[1)]
+  \item Choose $q\in\Q$ with $0<q<x$. Then by definition $n^q<n^x$,
+      and so $0<\oneOver{n^x}<\oneOver{n^q}$. Also by HW,
+      $\oneOver{n^q}\to0$ as $n\to\infty$ when $q\in\Q$ with $q>0$.
+      Hence by the Squeeze lemma, $\oneOver{n^x}\to0$.
+  \item Assume first that $x>1$. Then
+      $\left(x^\oneOver{n}\right)^n=x>1^n\iff x^\oneOver{n}>1$.
+      Set $b_n=x^\oneOver{n}-1>0$. Then
+      $(1+b_n)^n=\left(x^\oneOver{n}\right)^n=x$. By the Binomial theorem,
+      \[
+      x=(1+b_n)^n=\sum_{k=0}^n\binom{n}{k}b_n^k\underbrace{1^{n-k}}_{=1}
+      \ge 1+\binom{n}{1}b_n=1+nb_n
+      \]
+      So, $0<b_n\le\frac{x-1}{n}\to0$. By the Squeeze lemma, $b_n\to0$
+      as $n\to\infty$. But $b_n=a_n-1$, so $a_n\to1$ as $n\to\infty$ when $x>1$.
+      If $x=1$ then $a_n=1\to1$ as $n\to\infty$. If $x<1$ then $\oneOver{x}>1
+      \implies \oneOver{x^\oneOver{n}}=\left(\oneOver{x}\right)^\oneOver{n}\to1$
+      and so $x^\oneOver{n}\to1$ as $n\to\infty$ as well.
+  \item Let $b_n=n^\oneOver{n}-1>0$. Then
+      \[
+      n=(1+b_n)^n=\sum_{k=0}^n\binom{n}{k}b_n^k\ge 1+\binom{n}{2}b_n^2
+      =1+\frac{n(n-1)}{2}b_n^2
+      \]
+      So, if $n\ge 2$ then $\frac{n(n-1)}{2}b_n^2\le n-1\implies 0< b_n\le
+      \left(\frac{2}{n}\right)^\oneOver{2}\to0$, so again by the
+      Squeeze lemma, $b_n\to0$. Hence $a_n\to 1$ as $n\to\infty$.
+  \item Fix $k\in\N$ s.t.\ $k>\max\{1,\alpha\}$. Then if $n\ge 2k$ we have
+      that \[
+      (1+x)^n=\sum_{j=0}^n\binom{n}{j}x^j\ge\binom{n}{k}x^k=
+        \frac{n(n-1)\cdots(n-k+1)}{k!}x^k
+        \ge\left(\frac{n}{2}\right)^k\frac{x^k}{k!}
+      \]
+      Then $n\ge 2k\implies 0<\frac{n^\alpha}{(1+x)^n}
+        \le \frac{2^kk!n^\alpha}{x^kn^k}
+        =\left(\frac{2^kk!}{x^k}\right)\oneOver{n^{k-\alpha}}
+        \to0$ since $k=\alpha>0$. Again by the Squeeze lemma,
+        $\frac{n^\alpha}{(1+x)^n}\to0$.
+  \item Since $|x|<1$ we know $1<\oneOver{|x|}\implies z=\oneOver{|x|}-1>0$.
+      By (4) with $\alpha=0$, we know that $\oneOver{(1+z)^n}\to0$
+      as $n\to\infty$. But $\oneOver{1+z}=\oneOver{1/|x|}=|x|$, so
+      $|x|^n\to0$, but $|x|^n=|x^n|$, so $x^n\to0$ (by HW).
+  \end{enumerate}
+\end{description}
+
+\section{Series}
+
+\begin{description}
+\item[Definition.] Let $\sA\subseteq\R$. For $p<q$ we write
+    \[
+    \sum_{n=p}^qa_n=a_p+\cdots+a_q
+    \]
+    \begin{enumerate}[1)]
+    \item We define, for each $n\ge l$, $S_n=\sum_{k=l}^na_k\in\R$
+        to be the $n^{th}$ partial sum of $\sA$.
+    \item If $\exists S\in\R$ such that $S_n\to S$ as $n\to\infty$ then
+        we write $\sum_{n=l}^\infty a_n=S$. In this case we say the
+        ``infinite series'' $\sum_{n=l}^\infty a_n$ converges.
+    \item If $\sum_{n=l}^\infty a_n$ does not converge, then
+        we say it diverges.
+    \end{enumerate}
+
+\item[Examples.]\text{}\vspace{-0.2in}\\
+  \begin{enumerate}[1)]
+  \item Let $a_n=x^n$ for some $x,n\in\R$ with $n\ge0$.
+      Then $S_n=\sum_{k=0}^nx^k$. Notice that
+      \[
+      (1-x)S_n=\sum_{k=0}^n x^k-\sum_{k=0}^nx^{k+1}=
+      \sum_{k=0}^nx^k-\sum_{k=1}^{n+1}x^k=x^0-x^{n+1}=1-x^{n+1}
+      \]
+      Hence $S_n=\frac{1-x^{n+1}}{1-x}$. By (5) of the previous theorem,
+      if $|x|<1$ then $S_n\to\frac{1}{1-x}$.
+        So, $|x|<1\implies\sum_{n=0}^\infty x^n=\oneOver{1-x}$. 
+        In particular $\sum_{n=0}^\infty \oneOver{2^n}=\oneOver{1-\oneOver{2}}=2$.
+
+% 9/30
+
+  \item Suppose $\{b_n\}_{n=0}^\infty\subseteq\R$ s.t.\ $b_n\to b$ as $n\to\infty$.
+      Set $a_n=b_{n+1}-b_n$ for $n\ge 0$. Then the series $\sum_{n=0}^\infty a_n$
+      converges and in particular $\sum_{n=0}^\infty a_n=b-b_0$.
+      \[
+      S_n=\sum_{k=0}^n a_k=(b_{n+1}-b_n)+\cdots+(b_1+b_0)=b_{n+1}-b_0
+      \]
+      But $b_{n+1}-b_0\to b-b_0$ as $n\to\infty$, so by definition
+      $\sum_{n=0}^\infty a_n=b-b_0$.
+  \end{enumerate}
+\end{description}
+
+\subsection{Convergence results}
+Our goal here is to develop tools that will let us deduce the convergence
+of a series without actually knowing its value.
+\begin{description}
+\item[Theorem.] Suppose $\sum_{n=l}^\infty a_n$ converges. Then $a_n\to0$
+    as $n\to\infty$.
+
+\item[Proof.] Notice that $a_n=S_n-S_{n-1}$ and so
+  $\lim_{n\to\infty} a_n=\lim_{n\to\infty}(S_n-S_{n-1})=S_S=0$.
+
+\item[Corollary.] $\sum_{n=0}^\infty (-1)^n$
+    and $\sum_{n=0}^\infty n$ both diverge.
+
+\item[Proof.] $(-1)^n$ does not converge to 0, and neither does $n$.
+
+
+\item[Corollary.] The series $\sum_{n=0}^\infty x^n$ converges $\iff |x|<1$.
+\item[Proof.] $\Leftarrow$ was done previously.\\
+  $\Rightarrow$ It suffices to note that $|x|\ge1\implies|x^n|=|x|^n\ge1
+  \;\forall n\in\N$.
+\end{description}
+
+Next we provide a characterization of convergence in terms of the size of the
+``tails'' of a series.
+
+\begin{description}
+\item[Theorem.] $\sum_{n=l}^\infty a_n$ converges $\iff\;\forall\epsilon>0,
+    \exists N\ge l$ s.t.\ $m\ge k\ge N\implies
+    \left|\sum_{n=k}^m a_n\right|<\epsilon$.
+
+\item[Proof.] $\sum_{n=l}^\infty a_n$ converges $\iff S_k=\sum_{n=l}^k a_n$
+    converges $\iff \{S_k\}$ is Cauchy. $\iff \forall\epsilon>0$,
+    $\exists N\ge l$ s.t.\ $m\ge k\ge N\implies
+    \left|\sum_{n=k}^m a_n\right|<\epsilon$. $\hfill\square$
+
+
+\item[Theorem.] \text{}\vspace{-0.2in}\\
+  \begin{enumerate}[1)]
+  \item Suppose $|a_n|\le b_n\;\forall n\ge K$ for some $K\ge l$.
+       If $\sum_{n=l}^\infty b_n$ converges, then
+       $\sum_{n=l}^\infty a_n$ converges.
+  \item If $0\le a_n\le b_n\;\forall n\ge K$ for some $K\ge l$, and
+      $\sum_{n=l}^\infty a_n$ diverges, then $\sum_{n=l}^\infty b_n$ diverges.
+  \end{enumerate}
+
+\item[Proof.] \text{}\vspace{-0.2in}\\
+  \begin{enumerate}[1)]
+  \item Since $\sum_{n=l}^\infty b_n$ converges we know that
+      $\forall \epsilon>0$, $\exists N\ge l$ s.t.\ $m\ge k\ge N\implies
+      |\sum_{n=k}^m b_n|<\epsilon$. Let $\epsilon>0$. Then if
+      $m\ge k\ge \max\{N,K\}$ we have that
+      \[
+      \left|\sum_{n=k}^m a_n\right|\le \sum_{n=k}^m|a_n|\le
+      \sum_{n=k}^m b_n<\epsilon
+      \]
+      Since $\epsilon>0$ is arbitrary, by the previous theorem
+      we deduce that $\sum_{n=l}^\infty a_n$ converges.
+
+  \item This follows from the contrapositive of (1).
+  \end{enumerate}
+
+
+\item[Examples.]\text{}\vspace{-0.2in}\\
+  \begin{enumerate}[1)]
+  \item $\sum_{n=0}^\infty \frac{(-1)^n}{2^n}$ converges because
+      $\left|\frac{(-1)^n}{2^n}\right|=\oneOver{2^n}$ and
+      $\sum_{n=0}^\infty\oneOver{2^n}$ converges $(\frac{1}{2}<1)$.
+
+  \item Suppose $\sum_{n=0}^\infty a_n$ converges and $a_n\ge 0\;\forall n\ge 0$.
+      Let $\{b_n\}_{n=0}^\infty\subseteq\R$ be bounded, i.e.\
+      $|b_n|\le M\;\forall n$. Then $|a_nb_n|=|a_n||b_n|\le Ma_n$. Clearly
+      $MS_n=M\sum_{k=0}^n a_n=\sum_{k=0}^n Ma_n$, so
+      $\sum_{n=0}^\infty Ma_n=M\sum_{n=0}^\infty a_n$. Hence by the theorem,
+      $\sum_{n=0}^\infty a_nb_n$ converges.
+
+  \item $\sum_{n=0}^\infty\frac{(-1)^n}{2^n}\cdot\frac{n!}{n^n}
+      \cdot\frac{3n^2}{4n^2+2}$ converges because
+      $\frac{(-1)^n}{n^n}n!\frac{3n^2}{4n^2+2}$ is bounded.
+  \end{enumerate}
+
+
+\item[Theorem.] Suppose $a_n\ge 0\;\forall n\ge l$.
+  $\sum_{n=l}^\infty a_n$ converges $\iff\;\{S_n\}_{n=l}^\infty$ is bounded.
+
+\item[Proof.] Since $a_n\ge 0\;\forall n\ge l$, the sequence
+    $S_n=\sum_{k=l}^n a_k$ is non-decreasing. $S_{n+1}=a_{n+1}+S_n\ge S_n$.
+    We know that monotone sequences converge $\iff$ they are bounded.
+
+
+\item[Theorem (Cauchy criterion).] Suppose that
+    $\{a_n\}_{n=1}^\infty\subseteq\R$ satisfies $a_n\ge 0\;\forall n\ge 1$,\\
+    and $a_{n+1}\le a_n\;\forall n\ge 1$. Then
+    $\sum_{n=1}^\infty a_n\;\text{converges}\;
+    \iff\sum_{n=0}^\infty 2^na_{2^n}\;\text{converges}$.
+
+\item[Proof.] Let $\sum_{k=1}^n a_k$ and $T_m=\sum_{n=0}^m2^na_{2^n}$.
+    Notice that if $m\le 2^k$ then
+    \begin{align*}
+    S_m&\le a_1+\cdots+a_{2^k}\\
+    &\le a_1+(a_2+a_3)+\cdots+(a_{2^k}+\cdots+a_{2^{k+1}-1})\\
+    &\le a_1+2a_2+\cdots +2^ka_{2^k}=T_k
+    \end{align*}
+    On the other hand, if $m\ge 2^k$ then
+    \begin{align*}
+    S_m &\ge a_1+\cdots+a_{2^k}\\
+    &= a_1+a_2+(a_3+a_4)+\cdots +(a_{2^{k-1}+1}+\cdots+a_{2^k})\\
+    &\ge \frac{1}{2}a_1+a_2+(a_3+a_4)+\cdots+(a_{2^{k-1}-1}+\cdots+a_{2^k})\\
+    &\ge \frac{1}{2}a_1+a_2+\cdots+2^{k-1}a_{2^k}=\frac{1}{2} T_k
+    \end{align*}
+    Now, $\sum_{n=0}^\infty 2^na_{2^n}$ converges, then $T_n\to T$ as
+    $n\to\infty$, and so $S_m\le \lim_{n\to\infty}T_n=T$, which means
+    $\{S_m\}$ is bounded, and hence $\sum_{n=1}^\infty a_n$ converges.
+    Similarly, if $\sum_{n=1}^\infty a_n$ converges, then
+    $T_k\le 2\lim_{n\to\infty} S_n\implies\{T_k\}$ is bounded
+    $\implies\sum_{n=0}^\infty2^na_{2^n}$ converges.
+\end{description}
+
+\[
+\vdots
+\]
+
+\setcounter{section}{4}
+\section{Continuity}
+\[
+\vdots
+\]
+
+\setcounter{subsection}{2}
+\subsection{Compactness and Continuity}
+\[
+\vdots
+\]
+\begin{description}
+\item[Theorem.] Let $E\subseteq\R$ be compact and $n\in\N$ with $n\ge 2$.\\
+  Then $f(x)=x^n$ is uniformly continuous on $E$.
+
+\item[Proof.] Let $\varepsilon>0, \delta=\varepsilon/nM^{n-1}$.
+  Then \[
+  |x^n-y^n|=|x-y||x^{n-1}+x^{n-2}y+\cdots+y^{n-1}|\le|x-y|nM^{n-1}<\varepsilon
+  \]
+
+\item[Definition.] We say $f:E\to\R$ is \textbf{Lipschitz}
+  if $\forall x,y\in E\;|f(x)-f(y)|\le k|x-y|$ for some $k>0$.
+
+\item[Theorem.] If $f$ is Lipschitz, then $f$ is uniformly continuous.
+
+\item[Theorem.] If $K\subseteq\R$ compact and $f:K\to\R$ is continuous,
+    then $f$ is uniformly continuous on $K$.
+
+\item[Proof.] Let $\varepsilon>0$. Since $f$ is continuous on $K$, we know that
+  \[
+  \forall x\in K\quad \exists\delta_x>0.\;y\in K\wedge|x-y|<\delta_x
+      \implies|f(x)-f(y)|<\frac{\varepsilon}{2}
+  \]
+  Clearly $\{B(x,\delta_x/2)\}_{x\in K}$ is an open cover of $K$.
+  Since $K$ is compact, there exists a finite subcover where
+  $K\subseteq\bigcup_{i=1}^n B(x_i,\delta_{x_i}/2)$.
+  Let $\delta=\min\{\delta_{x_i}/2\;|\;i=1,\ldots,n\}>0$.
+
+  Suppose $x,y\in K$ and $|x-y|<\delta$. By construction of the finite subcover,
+  \begin{align*}
+  &(1)\quad\exists i\in 1,\ldots, n.\;|x-x_i|<\delta_{x_i}/2
+      \implies|f(x)-f(x_i)|<\varepsilon/2\\
+  &(2)\quad\exists i\in 1,\ldots, n.\;|y-x_i|\le|y-x|+|x-x_i|
+      <\delta+\delta_{x_i}/2\le\delta_{x_i}
+      \implies|f(y)-f(x_i)|<\varepsilon/2
+  \end{align*}
+  Hence $|f(x)-f(y)|<\varepsilon/2+\varepsilon/2=\varepsilon$.
+\end{description}
+
+\subsection{Continuity and Connectedness}
+\begin{description}
+\item[Theorem.] Let $E\subseteq\R$ and $f:E\to\R$ be continuous on $E$.\\
+    If $X\subseteq E$ is connected then $f(X)$ is connected.
+
+% \item[Proof.] Contrapositive. Suppose $f(X)$ is disconnected.
+%     Then $f(X)=A\cup B$ where $A,B$ nonempty and
+%     $\bar{A}\cap B=A\cap\bar{B}=\varnothing$.
+%     Let $G=f^{-1}(A)\cap X$ and $H=f^{-1}(B)\cap X$.
+%     Since $A\subseteq\bar{A}$, $f^{-1}(A)\subseteq f^{-1}(\bar{A})$.
+%     Since $\bar{A}$ closed, $f^{-1}(\bar{A})$ is relatively closed
+%     in $E$; that is to say, $f^{-1}(\bar{A})=C\cap E$ for some
+%     closed $C\subseteq\R$.
+%     \[
+%     G\subseteq C\implies\bar{C}\subseteq C\implies
+%     \bar{G}\cap E\subseteq C\cap E=f^{-1}(A)
+%     \implies f(\bar{G}\cap E)\subseteq f(f^{-1}(\bar{A}))\subseteq \bar{A}\subseteq B^c
+%     \]
+%     since $\bar{A}\cap B=\varnothing$. So $\bar{G}\cap H=\varnothing$
+%     since $H=f^{-1}(B)\cap X$.
+
+\item[Theorem (Intermediate Value Theorem).]\mbox{}\\
+  Let $a,b\in\R$ with $a<b$. Suppose $f:[a,b]\to\R$ is continuous.\\
+  If $f(a)<f(b)$ and $f(a)<c<f(b)$, then $\exists x\in(a,b).\;f(x)=c$.\\
+  If $f(b)<f(a)$ and $f(b)<c<f(a)$, then $\exists x\in(a,b).\;f(x)=c$.
+
+\item[Proof.] Since $[a,b]$ is connected, we know that $f([a,b])$ is connected.
+  Then $f(a),f(b)\inf([a,b])$ and $f(a)<c<f(b)\implies c\in f([a,b])$
+  via characterization of connected sets.
+\end{description}
+
+
+\subsection{Discontinuities}
+
+\begin{description}
+\item[Definition.] Suppose $E\subseteq\R$, $f:E\to\R,p\in E$ is a limit point of $E$.
+    Suppose that $f$ is not continuous at $p$.
+    \begin{enumerate}
+    \item We say $f$ has a simple discontinuity (or jump) at $p$ if
+       \[
+       \begin{cases}
+       \text{$p$ is not a lim pt.\ of $E_p^+$ and $\lim_{x\to p^-}f(x)$ exists
+         (but $f(p)\ne\lim_{x\to p^-}f(x)$)}\\
+       \text{$p$ is not a lim pt.\ of $E_p^-$ and $\lim_{x\to p^+}f(x)$ exists
+         (but $f(p)\ne\lim_{x\to p^+}f(x)$)}\\
+       \text{$p$ is a lim pt.\ of $E_p^+,E_p^-$ and $\lim_{x\to p^+}f(x)$ and
+         $\lim_{x\to p^-}f(x)$ both exist.}
+       \end{cases}
+       \]
+    \item Otherwise we say $f$ has an essential discontinuity at $p$.
+    \end{enumerate}
+
+\item[Examples.] Let $f:E\to\R$.
+  \begin{enumerate}
+  \item $E=R\quad f(x)=\begin{cases}
+    0 & x\ne0\\
+    1 & x=0
+    \end{cases}\qquad$\\
+    $f$ has a simple discont.\ at $x=0$, and is cont.\ on $\R\setminus\{0\}$.
+  \item $E=[0,1]\quad f(x)=\begin{cases}
+    12 & x=0\\
+    x & x\in(0,1]
+    \end{cases}\qquad$\\
+    $f$ is cont.\ on $(0,1]$ but has a simple discont.\ at $x=0$.
+  \item $E=[0,1]\quad f(x)=\begin{cases}
+    1 & x=0\\
+    \frac{1}{2} & x\in (0,1]
+    \end{cases}\qquad$\\
+    $f$ is cont.\ on $(0,1]$ but has a essential discont.\ at $x=0$.
+  \end{enumerate}
+
+\end{description}
+\[
+\vdots
+\]
+
+\section{Differentiation}
+\subsection{The Derivative}
+\[
+\vdots
+\]
+
+\subsection{Mean Value Theorems}
+\[
+\vdots
+\]
+\begin{description}
+\item[Theorem.] Let $f:E\to\R$. Suppose further that
+    $f$ is differentiable at $x\in E$,
+    and $x$ is a limit point of both $E_x^+$ and $E_x^-$.
+    If $f$ has a local extremum at $x$ then $f'(x)=0$.
+
+\item[Proof.] It suffices to assume that $f$ has a local max at $x$.\\
+    Let $\delta>0,t\in E.\; |x-t|<\delta\implies f(t)\le f(x)$. Then
+    \begin{align*}
+    &t\in E,\;0<x-t<\delta\implies\frac{f(t)-f(x)}{t-x}\ge0,\;\text{so}\;
+      f'(x)=\lim_{t\to x^-}\frac{f(t)-f(x)}{t-x}\ge 0\\
+    &t\in E,\;0<t-x<\delta\implies\frac{f(t)-f(x)}{t-x}\le0,\;\text{so}\;
+      f'(x)=\lim_{t\to x^+}\frac{f(t)-f(x)}{t-x}\le0
+    \end{align*}
+    Hence $f'(x)\ge0\wedge f'(x)\le0\implies f'(x)=0$.$\hfill\square$
+
+\item[Remark.] The result is false if $x$ is not a limit point of
+    either $E_x^+$ or $E_x^-$. Consider $f(x)=x$ on $E=[0,1]$.
+    $f$ has a local min at $x=0$ and local max at $x=1$, but
+    $f'(x)=1$ for all $x\in[0,1]$.
+
+\item[Theorem (Monotonicity, part 1).] Let $f:E\to\R$, and assume
+    that $f$ is differentiable at $x\in E$.
+    \begin{enumerate}[1)]
+    \item If $f$ is non-decreasing on $E$, then $f'(x)\ge0$.
+    \item If $f$ is non-increasing on $E$, then $f'(x)\le0$.
+    \end{enumerate}
+
+\item[Remark.] $f$ increasing $\implies f'(x)>0$ is false.
+    Consider $f(x)=\begin{cases}
+      x^2 & x\ge0\\
+      -x^2 & x<0
+    \end{cases}$.\\
+    $f:\R\to\R$ is increasing and differentiable, but $f'(0)=0$.
+
+\item[Theorem (Cauchy's mean value theorem).] Suppose $f,g:[a,b]\to\R$
+    are continuous on $[a,b]$ and differentiable on $(a,b)$.
+    Then $\exists x\in(a,b).\;(g(b)-g(a))f'(x)=(f(b)-f(a))g'(x)$.
+
+\item[Proof.] Consider $h:[a,b]\to\R$ via
+    \[
+    h(x)=(g(b)-g(a))f(x)-(f(b)-f(a))g(x)
+    \]
+    Clearly $h$ is continuous on $[a,b]$ and differentiable on $(a,b)$.
+    It suffices to find $x\in(a,b)$ such that $h'(x)=0$.
+    Notice that $h(a)=g(b)f(a)-g(a)f(b)=h(b)$.
+    If $h$ is constant then $h'(x)=0$ for all $x\in(a,b)$.
+    Assume, then, that $h$ is non-constant. We have two cases:
+    \begin{align*}
+    \exists t\in(a,b).\;h(t)>h(a) &\impBy{EVT}
+        \exists x\in(a,b).\;h(x)=\max h([a,b])\implies h'(x)=0\\
+    \exists t\in(a,b).\;h(t)<h(a) &\impBy{EVT}
+        \exists x\in(a,b).\;h(x)=\min h([a,b])\implies h'(x)=0
+    \end{align*}
+    $\hfill\square$
+
+\item[Corollary (MVT).] Let $f:[a,b]\to\R$. If $f$ is continuous on $[a,b]$
+    and differentiable on $(a,b)$, then
+    $\exists x\in(a,b).\;f(b)-f(a)=f'(x)(b-a)$.
+
+\item[Corollary (Monotonicity, part 2).] Let $f:(a,b)\to\R$ be
+    differentiable on $(a,b)$. Then
+    \begin{enumerate}[1)]
+    \item $f'(x)>0\;\forall x\in(a,b)\implies f$ is increasing
+    \item $f'(x)\ge 0\;\forall x\in(a,b)\implies f$ is non-decreasing
+    \item $f'(x)=0\;\forall x\in(a,b)\implies f$ is constant
+    \item $f'(x)\le 0\;\forall x\in(a,b)\implies f$ is non-increasing
+    \item $f'(x)<0\;\forall x\in(a,b)\implies f$ is decreasing
+    \end{enumerate}
+
+\item[Proof.] By MVT, if $x<x_1<x_2<b$, then
+    $f(x_2)-f(x_1)=f'(x)(x_2-x_1)$ for some $x\in(x_1,x_2)$.
+
+\item[Remark.] If $f:E\to\R$, where $E$ is open but disconnected,
+    then the result is false.\\
+    Consider $E=(0,1)\cup(2,3)$ and $f(x)=\begin{cases}
+      x & x\in(0,1)\\
+      x-5 & x\in(2,3)
+    \end{cases}$\\
+    Then $f'(x)=1$ for all $x\in E$ but $f$ is not increasing.
+\end{description}
+
+\subsection{Darboux's Theorem}
+\begin{description}
+\item[Definition.] We say that $g:\R\to\R$ is periodic with period $p>0$
+  if $g(x+p)=g(x)\;\forall x\in\R$.
+
+\item[Theorem (Darboux).] Suppose $f:[a,b]\to\R$ is differentiable on $[a,b]$
+    and $f'(a)<\gamma<f'(b)$. Then $\exists x\in(a,b).\;f'(x)=\gamma$.
+
+\item[Proof.] Define $g:[a,b]\to\R$ via $g(x)=f(x)-\gamma x$, which is
+    clearly differentiable on $[a,b]$. Since $g'(x)=f'(x)-\gamma$, it suffices
+    to find $x\in(a,b)$ such that $g'(x)=0$.\\
+    Note that $g'(a)=f'(a)-\gamma<0$ and $g'(b)=f'(b)-\gamma>0$.
+
+    The Newtonian approximation guarantees that $\exists\delta_a>0$
+    such that $t\in[a,b]$ with 
+    \[
+    |t-a|<\delta_a\implies|g(t)-(g(a)+g'(a)(t-a))|<-g'(a)(t-a)
+    \]
+    by choosing $\varepsilon=-g'(a)>0$. In particular,
+    \[
+    t\in[a,b]\wedge|t-a|<\delta_a\implies g(t)-g(a)-g'(a)(t-a)<-g'(a)(t-a)
+      \implies g(t)<g(a)
+    \]
+    A similar argument shows that $\exists\delta_b>0$ such that
+    $t\in[a,b]\wedge|t-b|<\delta_b\implies g(t)<g(b)$.
+    By EVT $\exists x\in[a,b].\;g(x)=\min g([a,b])$.
+    Then $x\in(a,b)$ and $g'(x)=0$.
+
+\item[Corollary.] If $f:[a,b]\to\R$ is differentiable on $[a,b]$, then
+    $f'$ has no simple discontinuities.
+\end{description}
+
+\subsection{L'H\^{o}pital's Rule}
+\begin{description}
+\item[Theorem.] Suppose $f,g:[a,b]\to\R$ are continuous on $[a,b]$,
+    differentiable on $[a,b]$, and $g'(x)\ne0\;\forall x\in[a,b]$.
+    If $f(a)=g(a)=0$, then
+    $L=\lim_{x\to a}\frac{f(x)}{g(x)}=\lim_{x\to a}\frac{f'(x)}{g'(x)}$
+
+\item[Proof.] We claim that $g(x)\ne0$ for $x\in(a,b]$.
+    Suppose not, for some $x\in(a,b])$. Then since $g(a)=0$,
+    $g'(z)=\frac{g(x)-g(a)}{x-a}=0$ for some $z\in(a,x)$, a contradiction.
+    So the function $f/g$ is well-defined.
+    Let $\{x_n\}_{n=l}^\infty\subseteq(a,b]$ satisfy $x_n\to a$ as
+    $n\to\infty$. We claim $\lim_{n\to\infty}\frac{f(x_n)}{g(x_n)}=L$.
+
+    We apply Cauchy's MVT on $[a,x_n]$:
+    \[
+    \exists y_n\in(a,x_n).\;f'(y_n)g(x_n)=
+      f'(y_n)(g(x_n)-g(a))=g'(y_n)(f(x_n)-f(a))=g'(y_n)f(x_n)
+    \]
+    Then $\frac{f(x_n)}{g(x_n)}=\frac{f'(y_n)}{g'(y_n)}\;\forall n\ge l$.
+    Since $a<y_n<x_n$, the squeeze lemma implies that $y_n\to a$.
+\end{description}
+
+% \subsection{Higher Derivatives and Taylor's Theorem}
+% \begin{description}
+% \item[Definition]
+% \end{description}
+\end{document}
